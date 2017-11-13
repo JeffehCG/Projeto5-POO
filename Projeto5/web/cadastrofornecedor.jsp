@@ -1,3 +1,4 @@
+<%@page import="com.database.web.DatabaseCreatorListener"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -52,23 +53,23 @@ try {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+        <title>Cadastro Fornecedor</title>
+</head>
     <body>
-        <h1>Hello World!</h1>
-        <form>           
+<%@include file="WEB-INF/jspf/header.jspf"%>
+        <form name="formulario" method="get" action="">           
             <fieldset>
             <legend>
                 Cadastro Fornecedor
             </legend>
 
                 <label for="cnpj">Informe o CNPJ:</label>
-                <input type="number" name="cnpj" required>
+                <input type="text" name="cnpj" id="cnpj" required/><br><br>
                 <label for="cnpj">Informe a razão social:</label>
-                <input type="text" name="razao" required>
-                <input type="submit" name="cadastrar" required>
+                <input type="text" name="razao" required/><br><br>
+                <input type="submit" name="cadastrar" required/>
             </fieldset>
         </form>
-
+        <%@include file="WEB-INF/jspf/footer.jspf"%>
     </body>
 </html>
