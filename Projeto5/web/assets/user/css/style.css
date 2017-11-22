@@ -1,0 +1,531 @@
+.borda {
+    border: solid red 1px;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Navbar */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.brand-logo {
+    font-weight: 900;
+}
+
+.dropdown-content {
+    background-color: #FFFFFF;
+    margin: 0;
+    display: none;
+    min-width: 250px;
+    /* Changed this to accomodate content width */
+    max-height: auto;
+    margin-left: -1px;
+    /* Add this to keep dropdown in line with edge of navbar */
+    overflow: hidden;
+    /* Changed this from overflow-y:auto; to overflow:hidden; */
+    opacity: 0;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+    will-change: width, height;
+}
+
+.menu-container {
+    padding: 0px 200px 0px 200px;
+    background-color: #424242;
+}
+
+.img-logo {
+    margin-top: 5px;
+    max-width: 155px;
+}
+
+.a-override {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "Roboto", sans-serif !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    padding: 13px 10px 10px 10px !important;
+}
+
+a:hover.a-override {
+    background-color: #EEEEEE;
+    height: 47px;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Login */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.container-login {
+    margin: 0 auto;
+    width: 750px;
+    margin-top: 50px;
+}
+
+.login-facebook {
+    height: 60px;
+    background: #EEEEEE;
+    text-align: center;
+}
+
+.login-facebook p {
+    font-size: 12px;
+    padding-top: 21px;
+    margin-right: 25px;
+}
+
+.icon-facebook img {
+    position: relative;
+    left: 170px;
+    bottom: 37px;
+}
+
+.login-ou {
+    font-size: 12px;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.card-login {
+    width: 47%;
+    position: relative;
+    padding: 0px 30px 0px 30px !important;
+    left: 10px;
+    height: 305px;
+    background-color: #eeeeee;
+}
+
+.card-novo {
+    width: 47%;
+    position: relative;
+    padding: 0px 30px 0 30px !important;
+    left: 36px;
+    height: 305px;
+    background-color: #eeeeee;
+}
+
+div.col.card-login form p,
+div.col.card-novo form p {
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #494949;
+    font-size: 20px;
+}
+
+
+/* Forms Login */
+
+.input-field label {
+    color: #2c2c2c !important;
+}
+
+.input-field input:focus+label {
+    color: #2c2c2c !important;
+}
+
+.input-field input:focus {
+    border-bottom: 1px solid #000 !important;
+    box-shadow: 0 1px 0 0 #EEEEEE !important;
+}
+
+.btn.waves-effect.waves-light {
+    margin-top: 20px;
+    background-color: #4d4d4d;
+    width: auto;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Cadastro Cliente */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.header-novo-cadastro {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.header-novo-cadastro p {
+    margin: 0;
+    font-weight: bold;
+    color: #494949;
+    font-size: 20px;
+}
+
+.fieldset-g {
+    width: 56%;
+    position: relative;
+    left: 8px;
+    height: 375px;
+    background-color: #eeeeee;
+    padding: 0 5px 0 5px !important;
+}
+
+.fieldset-p {
+    width: 41%;
+    position: relative;
+    left: 15px;
+    height: 375px;
+    background-color: #eeeeee;
+    padding: 0 5px 0 5px !important;
+}
+
+.col.fieldset-g span,
+.col.fieldset-p span {
+    font-size: 10px;
+}
+
+.col.fieldset-g p,
+.col.fieldset-p p {
+    font-size: 12px;
+}
+
+.col.fieldset-g span.legend {}
+
+.col.fieldset-p span.legend {}
+
+fieldset.fieldset-g.col .row,
+fieldset.fieldset-p.col .row {
+    margin-bottom: 0px;
+}
+
+.input-field {
+    margin: 0px !important;
+}
+
+.input-novo-cadastro {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    bottom: 20px;
+}
+
+label.radio-label {
+    font-size: 12px !important;
+    padding-left: 30px !important;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:after {
+    background-color: #626262 !important;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:before,
+[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #626262 !important;
+}
+
+.select-small {
+    height: 30px;
+    width: 70px;
+    margin-left: 5px !important;
+}
+
+.select-medium {
+    height: 30px;
+    width: auto;
+    margin-left: 5px !important;
+}
+
+select {
+    font-size: 12px;
+    position: relative;
+    bottom: 5px;
+}
+
+.btn-align-right {
+    float: right;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Footer */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.footer {
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    background: #424242;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding-top: 14px;
+    color: white;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Pesquisa */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.pesquisa {
+    background-color: #EEEEEE;
+    height: 100%;
+    margin-top: 50px;
+    padding-top: 20px;
+}
+
+.btn.waves-effect.waves-light.btn-pesquisa {
+    background-color: #4d4d4d;
+    width: auto;
+}
+
+.input-pesquisa {
+    width: 300px;
+    margin-top: 10px !important;
+}
+
+.input-pesquisa::placeholder {
+    color: black;
+}
+
+table {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: auto;
+    margin-bottom: 40px;
+    margin-top: 30px;
+    background-color: #3f3f3f;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+td,
+th {
+    width: 200px;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    color: white;
+}
+
+tr {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-color: gray;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.btn-cart {
+    margin: 0 !important;
+}
+
+.label-pesquisa {
+    font-size: 14px !important;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Mais Vendidos */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.p-header {
+    font-weight: bold;
+    color: #494949;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 35px !important;
+    margin-top: 5px !important;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Carrinho */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.input-quantidade {
+    width: 30px !important;
+    height: 25px !important;
+    color: black !important;
+    text-align: center;
+    font-weight: none !important;
+    display: inline-block !important;
+    position: relative;
+    bottom: 20px;
+    left: 22px;
+}
+
+.btn-quantidade-plus {
+    background-color: #3f3f3f !important;
+    border: none;
+    position: relative;
+    left: 0px;
+    bottom: -15px;
+}
+
+.btn-quantidade-minus {
+    background-color: #3f3f3f !important;
+    border: none;
+    position: relative;
+    top: 5px;
+}
+
+.botoes-plus-minus {
+    background-color: #3f3f3f !important;
+    border: none;
+    position: relative;
+    bottom: 11px;
+    left: 19px;
+    display: inline-block;
+    max-width: 40px !important;
+    max-height: 40px !important;
+}
+
+.btn-carrinho-finalizar {
+    margin: 0 !important;
+    margin-right: 30px !important;
+}
+
+.btn-remover {
+    background-color: #3f3f3f !important;
+    border: none;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Pagamento */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.margin-pagamento {
+    margin-top: 50px;
+}
+
+.div-conteudo {
+    background-color: #eeeeee;
+}
+
+.div-conteudo-margin-top {
+    background-color: #eeeeee;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-top: 1px;
+}
+
+.div-conteudo p,
+.div-conteudo-margin-top p {
+    font-weight: bold;
+    color: #494949;
+    font-size: 16px;
+    padding: 4px 15px 4px 15px;
+}
+
+.info-cliente {
+    padding: 0 0 0 15px !important;
+    margin: 0px !important;
+    display: block;
+    font-size: 13px;
+}
+
+.label-pagamento {
+    display: block;
+    padding-left: 15px;
+    color: #424242;
+    margin-top: 15px;
+}
+
+.select-pagamento {
+    width: auto !important;
+    height: auto !important;
+    margin-left: 14px;
+    margin-top: 5px !important;
+    border: none !important;
+    padding: 5px !important;
+}
+
+.btn-pagamento {
+    margin-left: 15px;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Home */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.black-friday-img {
+    width: 100%;
+    height: auto;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Cadastro Produto */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.prod {
+    height: 300px !important;
+}
+
+
+/*-------------------------------------------------------------------------------*/
+
+
+/* Alterar Produto */
+
+
+/*-------------------------------------------------------------------------------*/
+
+.table-produto {
+    max-width: 1200px !important;
+}
+
+.input-quantidade-p {
+    width: 80px !important;
+    height: 25px !important;
+    color: black !important;
+    text-align: center;
+    font-weight: none !important;
+    display: inline-block !important;
+    position: relative;
+}
