@@ -1,0 +1,20 @@
+<%@ page pageEncoding="UTF-8" %>
+<ul id="dropdown-products" class="dropdown-content collection">
+    <li><a class="a-override" href="pesquisa.jsp">Procurar Produtos</a></li>
+    <li><a class="a-override" href="mais-vendidos.jsp">Mais Vendidos</a></li>
+    <li><a class="a-override" href="promocoes.jsp">Promoções</a></li>
+</ul>
+<ul id="dropdown-user" class="dropdown-content collection">
+    <li><a class="a-override" href="login.jsp">Login</a></li>
+    <li><a class="a-override" href="carrinho.jsp">Meu Carrinho</a></li>
+</ul>
+<nav class="menu-container">
+    <div class="nav-wrapper grey darken-3">
+        <a href="#!" class="brand-logo left"><img class="img-logo" src="assets/user/img/logo.png"></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a class="dropdown-button" href="home.jsp">Home<i class="material-icons left">home</i></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown-products" data-beloworigin="true"><i class="material-icons left">local_grocery_store</i>Nossos Produtos<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown-user" data-beloworigin="true"><i class="material-icons left">account_circle</i>Olá Visitante<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+    </div>
+</nav>
