@@ -1,3 +1,4 @@
+<%@page import="com.database.web.fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.database.web.DatabaseCreatorListener"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -18,23 +19,15 @@
         con = DriverManager.getConnection("jdbc:derby:c:/derby/CompraOnline;shutdown=true");
 
         if (request.getParameter("cadastrar") != null) {
-            String cnpj = request.getParameter("cnpj");
-            String razao = request.getParameter("razao");
-            Statement stmt = con.createStatement();
-            String insertTableSQL = "INSERT INTO fornecedor"
-                    + "cd_cnpj_fornecedor,nm_razao_social_fornecedor"
-                    + "VALUES(?,?)";
-            PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
-            preparedStatement.setString(1, cnpj);
-            preparedStatement.setString(2, razao);
-            preparedStatement.executeUpdate();
+           int cnpj = Integer.parseInt(request.getParameter("cnpj"));            
+           fornecedor o = new fornecedor(cnpj,request.getParameter("razao"));
+           o.insereFornecedor();
 %>
 <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
     alert("Fornecedor Cadastrado !")
 </SCRIPT>
 <%
-            stmt.close();
-            preparedStatement.close();
+       
         }
 
     } catch (ClassNotFoundException e) {
