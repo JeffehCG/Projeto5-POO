@@ -1,18 +1,47 @@
 package com.database.web;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class Produto {
-    private int codbarras;
-    private String produto;
+    private static float codbarras;
+    private   String produto;
     private float valorprod;
     private int qtprod;
+    
+        public static  ArrayList<Produto> getStayList() throws Exception{
+        ArrayList<Produto> list = new ArrayList<>();
+        Statement s = Database.getConnection().createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM produto"
+                + " WHERE codbarras = "+getCodbarras());
+        while(rs.next()){
+            Produto vs = new Produto(
+                    rs.getFloat("cd_barras_produto"),
+                    rs.getString("nm_produto"),
+                    rs.getFloat("vl_produto"),
+                    rs.getInt("qt_estoque_produto")
+            );
+            list.add(vs);
+        }
+        rs.close();
+        s.close();
+        return list;
+    }
 
-    public int getCodbarras() {
+    public Produto(float codbarras, String produto, float valorprod, int qtprod) {
+        this.codbarras = codbarras;
+        this.produto = produto;
+        this.valorprod = valorprod;
+        this.qtprod = qtprod;
+    }
+
+    public static float getCodbarras() {
         return codbarras;
     }
 
-    public void setCodbarras(int codbarras) {
+    public  void setCodbarras(float codbarras) {
         this.codbarras = codbarras;
     }
 
@@ -40,7 +69,7 @@ public class Produto {
         this.qtprod = qtprod;
     }
     
-    public void insereProduto(){
+    public static void insereProduto(float codbarras,String produto,float valorprod, int qtdprod){
                      try{   
              String sql = "INSERT INTO produto"
                      +"cd_produto"
@@ -50,9 +79,9 @@ public class Produto {
                     + "qt_estoque_produto"
                     + "VALUES(default,?,?,?,?)";
              PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
-             preparedStatement.setInt(1,codbarras);
+             preparedStatement.setFloat(1,codbarras);
              preparedStatement.setFloat(3,valorprod);
-             preparedStatement.setInt(4,qtprod);
+             preparedStatement.setInt(4,qtdprod);
              preparedStatement.setString(2,produto);
              preparedStatement.execute();
              preparedStatement.close();

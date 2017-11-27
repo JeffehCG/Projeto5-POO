@@ -1,5 +1,27 @@
+<%@page import="com.database.web.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+if (request.getParameter("btn_cadastrar") != null) {
+    float codbarras = Float.parseFloat(request.getParameter("txt_codigo_barras"));
+    String nomeprod = request.getParameter("txt_nome");
+    int qtdprod = Integer.parseInt(request.getParameter("txt_qtd"));
+    float vlprod = Float.parseFloat(request.getParameter("txt_vl_venda"));
+    
+    try{
+           Produto.insereProduto(codbarras,nomeprod,vlprod,qtdprod);
+           response.sendRedirect(request.getRequestURI());  
+    }catch(Exception e){
+        
+    }
+    }
+
+
+
+
+
+
+%>
 <html>
     <head>
         <title>Loja de Produtos Diversos | Good Judgment</title>
