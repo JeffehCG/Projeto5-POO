@@ -1,4 +1,4 @@
-<%@page import="com.database.web.fornecedor"%>
+<%@page import="com.database.web.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.database.web.DatabaseCreatorListener"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -8,35 +8,25 @@
 <%@page import="java.sql.SQLException"%>
 
 <%
-    Connection con = null;
 
-    try {
-        // Load the JDBC driver  
-        String driverName = "org.apache.derby.jdbc.EmbeddedDriver";
-        Class.forName(driverName);
-        // Create a connection to the database  ;
-        String url = "jdbc:derby:c:/derby/CompraOnline;create=true";
-        con = DriverManager.getConnection("jdbc:derby:c:/derby/CompraOnline;shutdown=true");
 
         if (request.getParameter("cadastrar") != null) {
            int cnpj = Integer.parseInt(request.getParameter("cnpj"));            
-           fornecedor o = new fornecedor(cnpj,request.getParameter("razao"));
-           o.insereFornecedor();
+           String razao = (request.getParameter("razao"));            
+           try{
+               Fornecedor.insereFornecedor(cnpj,razao);
+               response.sendRedirect(request.getRequestURI());
 %>
 <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-    alert("Fornecedor Cadastrado !")
+    alert("Fornecedor Cadastrado!")
 </SCRIPT>
 <%
        
-        }
-
-    } catch (ClassNotFoundException e) {
-        out.print("Erro Driver");
-    } catch (SQLException e) {
-        out.print("Erro SQL");
-    } catch (Exception e) {
+        
+}catch (Exception e) {
         out.print("Erro try catch");
     }
+}
 %>
 <!DOCTYPE html>
 <html>
