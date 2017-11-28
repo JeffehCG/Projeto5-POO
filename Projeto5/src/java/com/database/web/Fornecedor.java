@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class fornecedor {
+public class Fornecedor {
     
     private int cnpj;
     private String razao;
