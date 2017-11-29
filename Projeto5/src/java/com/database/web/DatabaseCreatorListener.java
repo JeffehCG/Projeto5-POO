@@ -40,6 +40,32 @@ public class DatabaseCreatorListener implements ServletContextListener {
         }
     }
     
+    public void EntradaProduto(Statement s){
+        try {
+            s.execute("CREATE TABLE entradaProduto("
+                     +"cd_entrada INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY"
+                     +",dt_entrada DATE NOT NULL"
+                     +",vl_total_entrada NUMERIC(10,2)NOT NULL)");
+        } catch (Exception e) {
+        }
+    }
+     
+    public void QuantidadeEntradaProduto(Statement s){
+        try {
+            s.execute("CREATE TABLE quantidadeEntradaProduto("
+                    +"cd_entrada INTEGER NOT NULL"
+                    +",cd_barras_produto FLOAT(13)NOT NULL"
+                    +",qt_produto INTEGER NOT NULL"
+                    +",vl_custo NUMERIC(10,2)NOT NULL"
+                    +",CONSTRAINT pk_quantidadeEntrada PRIMARY KEY (cd_entrada,cd_barras_produto)"
+                    +",CONSTRAINT fk_ProdutoEntrada FOREIGN KEY (cd_barras_produto) REFERENCES produto (cd_barras_produto)"
+                    +",CONSTRAINT fk_ProdutoEntrada2 FOREIGN KEY (cd_entrada) REFERENCES entradaProduto (cd_entrada))"
+            
+            );
+        } catch (Exception e) {
+        }
+    }
+    
     public void CriarCliente (Statement s) {
         try {
             s.execute("CREATE TABLE cliente("
