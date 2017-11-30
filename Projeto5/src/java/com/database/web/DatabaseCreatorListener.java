@@ -39,13 +39,26 @@ public class DatabaseCreatorListener implements ServletContextListener {
             System.out.println("Erro ao criar produto" + ex.getMessage());
         }
     }
+     
+    public void CriarFornecedor (Statement s) {
+        try {
+            s.execute("CREATE TABLE fornecedor ("
+                    + "cd_fornecedor INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)"
+                    + ",cd_cnpj_fornecedor FLOAT(14) NOT NULL"
+                    + ",nm_razao_social_fornecedor VARCHAR(50) NOT NULL)");
+            System.out.println("Criada a tabela Fornecedor");
+        } catch (Exception ex) {
+            System.out.println("Erro ao criar fornecedor"+ex.getMessage());
+        }
+    }
     
     public void EntradaProduto(Statement s){
         try {
             s.execute("CREATE TABLE entradaProduto("
-                     +"cd_entrada INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY"
+                     +"cd_cnpj_fornecedor FLOAT(14) NOT NULL"
                      +",dt_entrada DATE NOT NULL"
-                     +",vl_total_entrada NUMERIC(10,2) DEFAULT 0.0)");
+                     +",vl_total_entrada NUMERIC(10,2) DEFAULT 0.0"
+                    + ",CONSTRAINT pk_entradaProduto PRIMARY KEY (cd_cnpj_fornecedor,dt_entrada))");
         } catch (Exception e) {
         }
     }
@@ -53,15 +66,16 @@ public class DatabaseCreatorListener implements ServletContextListener {
     public void QuantidadeEntradaProduto(Statement s){
         try {
             s.execute("CREATE TABLE quantidadeEntradaProduto("
-                    +"cd_entrada INTEGER NOT NULL"
+                    +"cd_cnpj_fornecedor FLOAT(14) NOT NULL"
+                    +",dt_entrada DATE NOT NULL"
                     +",cd_barras_produto FLOAT(13)NOT NULL"
                     +",qt_produto INTEGER NOT NULL"
                     +",vl_custo NUMERIC(10,2)NOT NULL"
-                    +",CONSTRAINT pk_quantidadeEntrada PRIMARY KEY (cd_entrada,cd_barras_produto)"
+                    +",CONSTRAINT pk_quantidadeEntrada PRIMARY KEY (cd_cnpj_fornecedor,dt_entrada,cd_barras_produto)"
                     +",CONSTRAINT fk_ProdutoEntrada FOREIGN KEY (cd_barras_produto) REFERENCES produto (cd_barras_produto)"
-                    +",CONSTRAINT fk_ProdutoEntrada2 FOREIGN KEY (cd_entrada) REFERENCES entradaProduto (cd_entrada))"
+                    +",CONSTRAINT fk_ProdutoEntrada2 FOREIGN KEY (cd_cnpj_fornecedor,dt_entrada) REFERENCES entradaProduto (cd_cnpj_fornecedor,dt_entrada))"
             
-            );
+            ); 
         } catch (Exception e) {
         }
     }
@@ -77,18 +91,6 @@ public class DatabaseCreatorListener implements ServletContextListener {
             System.out.println("Erro ao criar cliente"+ex.getMessage());
         }
   
-    }
-    
-    public void CriarFornecedor (Statement s) {
-        try {
-            s.execute("CREATE TABLE fornecedor ("
-                    + "cd_fornecedor INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)"
-                    + ",cd_cnpj_fornecedor FLOAT(14) NOT NULL"
-                    + ",nm_razao_social_fornecedor VARCHAR(50) NOT NULL)");
-            System.out.println("Criada a tabela Fornecedor");
-        } catch (Exception ex) {
-            System.out.println("Erro ao criar fornecedor"+ex.getMessage());
-        }
     }
     
     public void InserirGrade (Statement s){
@@ -127,6 +129,8 @@ public class DatabaseCreatorListener implements ServletContextListener {
             CriarProduto(s);
             CriarCliente(s);
             CriarFornecedor(s);
+            EntradaProduto(s);
+            QuantidadeEntradaProduto(s);
             InserirGrade(s);
             s.close();
             c.close();
