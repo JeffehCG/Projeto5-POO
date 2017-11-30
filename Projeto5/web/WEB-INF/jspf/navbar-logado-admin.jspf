@@ -7,7 +7,7 @@
 <ul id="dropdown-user" class="dropdown-content collection">
     <li><a class="a-override" href="carrinho.jsp">Meu Carrinho</a></li>
     <li><a class="a-override" href="cadastro-fornecedor.jsp">Cadastrar Fornecedor</a></li>
-    <li><a class="a-override" href="cadastro-produto.jsp">Cadastrar Produto</a></li>
+    <li><a class="a-override" href="CadastroProdutoTest.jsp">Cadastrar Produto</a></li>
     <li><a class="a-override" href="alterar-produto.jsp">Alterar Produto</a></li>
     <li><a class="a-override" href="Logoff">Logoff</a></li>
 </ul>
