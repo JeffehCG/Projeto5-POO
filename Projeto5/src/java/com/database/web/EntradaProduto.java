@@ -29,15 +29,13 @@ public class EntradaProduto {
         return list;
     }
 
-    public static Timestamp InserirEntradaProduto(int cnpj,Timestamp dataEntrada) throws Exception{
-        Timestamp dtr = new Timestamp(new Date().getTime());
+    public static void InserirEntradaProduto(int cnpj,Timestamp dataEntrada) throws Exception{
         String SQL = "INSERT INTO entradaProduto VALUES(?,?,default)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
         s.setInt(1, cnpj);
-        s.setTimestamp(2,dtr);
+        s.setTimestamp(2,dataEntrada);
         s.execute();
         s.close();
-        return dtr;
     }
    
     public EntradaProduto(int cnpj, Date dataEntrada, double vlTotal) {
