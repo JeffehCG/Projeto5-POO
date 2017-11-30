@@ -3,18 +3,20 @@ package com.database.web;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ProdutoJ {
-    int id; 
-    int cdBarra;
-    String nome;
-    String tipo;
-    String marca;
-    String desc;
-    double vlCusto;
-    double vlVenda;
-    int qtEstoque;
-    int cdGrade;
+    private int id; 
+    private int cdBarra;
+    private String nome;
+    private String tipo;
+    private String marca;
+    private String desc;
+    private double vlCusto;
+    private double vlVenda;
+    private int qtEstoque;
+    private int cdGrade;
     
     public static ProdutoJ getProdutoJ(int cdBarra) throws Exception{
         ProdutoJ pj = null;
@@ -40,6 +42,29 @@ public class ProdutoJ {
         return pj;
     }
 
+    public static ArrayList<ProdutoJ> getStayList() throws Exception{
+        ArrayList<ProdutoJ> list = new ArrayList<>();
+        Statement s = Database.getConnection().createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM produto");
+        while(rs.next()){
+            ProdutoJ pj = new ProdutoJ(
+                     rs.getInt("cd_produto")
+                    ,rs.getInt("cd_barras_produto")
+                    ,rs.getString("nm_produto")
+                    ,rs.getString("nm_tipo_produto")
+                    ,rs.getString("nm_marca_produto")
+                    ,rs.getString("ds_produto")
+                    ,rs.getDouble("vl_custo_produto")
+                    ,rs.getDouble("vl_produto")
+                    ,rs.getInt("qt_estoque_produto")
+                    ,rs.getInt("cd_grade"));
+            list.add(pj);
+        }
+        rs.close();
+        s.close();
+        return list;
+    }
+    
     public static void inserirProduto(int cdBarra, String nome, String tipo, String marca, String ds,double valor, int grade) throws Exception{
         String SQL = "INSERT INTO produto VALUES(default,?,?,?,?,?,default,?,default,?)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
@@ -52,10 +77,6 @@ public class ProdutoJ {
         s.setInt(7,grade);
         s.execute();
         s.close();
-    }
-    
-    public static void entradaMercadoria(double custo, int estoque, int cdBarra)throws Exception{
-        String SQL = "UPDATE entradaProduto SET vl_custo_produto=? ,qt_estoque_produto=? WHERE = cd_barras_produto=?";
     }
     
     public ProdutoJ(int id, int cdBarra, String nome, String tipo, String marca, String desc, double vlCusto, double vlVenda, int qtEstoque, int cdGrade) {
