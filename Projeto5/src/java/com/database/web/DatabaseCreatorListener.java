@@ -45,7 +45,7 @@ public class DatabaseCreatorListener implements ServletContextListener {
             s.execute("CREATE TABLE entradaProduto("
                      +"cd_entrada INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY"
                      +",dt_entrada DATE NOT NULL"
-                     +",vl_total_entrada NUMERIC(10,2)NOT NULL)");
+                     +",vl_total_entrada NUMERIC(10,2) DEFAULT 0.0)");
         } catch (Exception e) {
         }
     }
