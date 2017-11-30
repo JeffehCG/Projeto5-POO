@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EntradaProduto {
-   private int codigoEntrada;
+   private int cnpj;
    private Date dataEntrada;
    private double vlTotal;
    
@@ -19,7 +19,7 @@ public class EntradaProduto {
         ResultSet rs = s.executeQuery("SELECT * FROM entradaProduto");
         while(rs.next()){
             EntradaProduto ep = new EntradaProduto(
-                     rs.getInt("cd_entrada")
+                     rs.getInt("cd_cnpj_fornecedor")
                     ,rs.getTimestamp("dt_entrada")
                     ,rs.getDouble("vl_total_entrada"));
             list.add(ep);
@@ -29,28 +29,19 @@ public class EntradaProduto {
         return list;
     }
 
-    public void InserirEntradaProduto() throws Exception{
-        String SQL = "INSERT INTO entradaProduto VALUES(default,?,default)";
+    public static void InserirEntradaProduto(int cnpj,Timestamp dataEntrada) throws Exception{
+        String SQL = "INSERT INTO entradaProduto VALUES(?,?,default)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
-        s.setTimestamp(1, new Timestamp(new Date().getTime()));
+        s.setInt(1, cnpj);
+        s.setTimestamp(2,dataEntrada);
         s.execute();
         s.close();
     }
    
-    public EntradaProduto(int codigoEntrada, Date dataEntrada, double vlTotal) {
-        this.codigoEntrada = codigoEntrada;
+    public EntradaProduto(int cnpj, Date dataEntrada, double vlTotal) {
+        this.cnpj = cnpj;
         this.dataEntrada = dataEntrada;
         this.vlTotal = vlTotal;
-    }
-
-   
-   
-    public int getCodigoEntrada() {
-        return codigoEntrada;
-    }
-
-    public void setCodigoEntrada(int codigoEntrada) {
-        this.codigoEntrada = codigoEntrada;
     }
 
     public Date getDataEntrada() {
@@ -67,6 +58,14 @@ public class EntradaProduto {
 
     public void setVlTotal(double vlTotal) {
         this.vlTotal = vlTotal;
+    }
+
+    public int getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(int cnpj) {
+        this.cnpj = cnpj;
     }
    
    
