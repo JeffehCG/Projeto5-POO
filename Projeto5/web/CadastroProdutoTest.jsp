@@ -26,8 +26,13 @@
             enterParkingErrorMessage = e.getMessage();
       
         }
-            
-      }
+    }
+            if(request.getParameter("entrada")!=null){
+                if (request.getParameter("txt_cnpj")!=null){
+                 session.setAttribute("me.id",request.getParameter("txt_cnpj"));}
+                response.sendRedirect("EntradaTeste.jsp");
+            }
+      
     
 
 
@@ -53,7 +58,7 @@
         <br>
         <br>
         
-        <form action="EntradaText.jsp">
+        <form>
             CNPJ: <input type="text" name="txt_cnpj" /><br>
             <input type="submit" name="entrada" value="Entrada de Mercadoria" ><br><br>
         </form>

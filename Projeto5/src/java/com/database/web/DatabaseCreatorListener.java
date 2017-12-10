@@ -56,7 +56,7 @@ public class DatabaseCreatorListener implements ServletContextListener {
         try {
             s.execute("CREATE TABLE entradaProduto("
                      +"cd_cnpj_fornecedor FLOAT(14) NOT NULL"
-                     +",dt_entrada DATE NOT NULL"
+                     +",dt_entrada timestamp NOT NULL"
                      +",vl_total_entrada NUMERIC(10,2) DEFAULT 0.0"
                     + ",CONSTRAINT pk_entradaProduto PRIMARY KEY (cd_cnpj_fornecedor,dt_entrada))");
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class DatabaseCreatorListener implements ServletContextListener {
         try {
             s.execute("CREATE TABLE quantidadeEntradaProduto("
                     +"cd_cnpj_fornecedor FLOAT(14) NOT NULL"
-                    +",dt_entrada DATE NOT NULL"
+                    +",dt_entrada timestamp NOT NULL"
                     +",cd_barras_produto FLOAT(13)NOT NULL"
                     +",qt_produto INTEGER NOT NULL"
                     +",vl_custo NUMERIC(10,2)NOT NULL"
@@ -95,23 +95,23 @@ public class DatabaseCreatorListener implements ServletContextListener {
     
     public void InserirGrade (Statement s){
         try {
-            s.execute("INSERT INTO grade VALUES(default,'Isento',0,0,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 25% Saida 25%',25,25,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 25% Saida 18%',25,18,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 25% Saida 12%',25,12,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 25% Saida 7%',25,7,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 18% Saida 25%',18,25,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 18% Saida 18%',18,18,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 18% Saida 12%',18,12,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 18% Saida 7%',18,7,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 12% Saida 25%',12,25,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 12% Saida 18%',12,18,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 12% Saida 12%',12,12,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 12% Saida 7%',12,7,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 7% Saida 25%',7,25,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 7% Saida 18%',7,18,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 7% Saida 12%',7,12,0.0);"
-                    + "INSERT INTO grade VALUES(default,'Entrada 7% Saida 7%',7,7,0.0);");
+            s.execute("INSERT INTO grade VALUES(default,'Isento',0,0,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 25% Saida 25%',25,25,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 25% Saida 18%',25,18,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 25% Saida 12%',25,12,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 25% Saida 7%',25,7,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 18% Saida 25%',18,25,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 18% Saida 18%',18,18,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 18% Saida 12%',18,12,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 18% Saida 7%',18,7,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 12% Saida 25%',12,25,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 12% Saida 18%',12,18,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 12% Saida 12%',12,12,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 12% Saida 7%',12,7,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 7% Saida 25%',7,25,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 7% Saida 18%',7,18,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 7% Saida 12%',7,12,0.0)");
+            s.execute("INSERT INTO grade VALUES(default,'Entrada 7% Saida 7%',7,7,0.0)");
         } catch (Exception ex) {
             System.out.println("Erro ao inserir dados na grade "+ex.getMessage());
         }

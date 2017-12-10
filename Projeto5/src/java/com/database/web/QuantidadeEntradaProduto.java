@@ -3,6 +3,8 @@ package com.database.web;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import javafx.scene.shape.Arc;
 
 public class QuantidadeEntradaProduto {
     private int codigoProduto;
@@ -11,15 +13,21 @@ public class QuantidadeEntradaProduto {
     private Timestamp dataEntrada;
     private double vlCusto;
     
-    public static void EntradaProduto(int cnpj, Timestamp time, int cdProduto, int quantidade, double valor) throws Exception{
-        int cont = 0;
-        for(int i = 0; i<EntradaProduto.getStayList().size();i++){
-            EntradaProduto entrada = EntradaProduto.getStayList().get(i);
-            if(entrada.getCnpj() == cnpj && entrada.getDataEntrada() == time){
-                cont = 1;
-            }
+    private static ArrayList<QuantidadeEntradaProduto> Entrada;
+    public static ArrayList<QuantidadeEntradaProduto> setEntradaProdutos(int cdProduto, int qtProduto, double vlProduto) throws Exception{
+        if (Entrada == null){
+        Entrada = new ArrayList<>();}
+        QuantidadeEntradaProduto Ent = new QuantidadeEntradaProduto(cdProduto, qtProduto, vlProduto);
+        Entrada.add(Ent);
+        return Entrada;
+    }
+    public static ArrayList<QuantidadeEntradaProduto> getEntrada(){
+        if (Entrada == null){
+            Entrada = new ArrayList<>();}
+        return Entrada;
         }
-        if (cont == 1){
+    
+    public static void EntradaProduto(int cnpj, Timestamp time, int cdProduto, int quantidade, double valor) throws Exception{
             String SQL = "INSERT INTO quantidadeEntradaProduto VALUES(?,?,?,?,?)";
             PreparedStatement s = Database.getConnection().prepareStatement(SQL);
             s.setInt(1,cnpj);
@@ -29,10 +37,15 @@ public class QuantidadeEntradaProduto {
             s.setDouble(5, valor);
             s.execute();
             s.close();
-        }else{
-            
-        }
+
 }
+
+    public QuantidadeEntradaProduto(int codigoProduto, int qtEntrada, double vlCusto) {
+        this.codigoProduto = codigoProduto;
+        this.qtEntrada = qtEntrada;
+        this.vlCusto = vlCusto;
+    }
+    
 
     public QuantidadeEntradaProduto(int codigoProduto, int cnpj, int qtEntrada, Timestamp dataEntrada, double vlCusto) {
         this.codigoProduto = codigoProduto;

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class EntradaProduto {
    private int cnpj;
-   private Date dataEntrada;
+   private Timestamp dataEntrada;
    private double vlTotal;
    
    public static ArrayList<EntradaProduto> getStayList() throws Exception{
@@ -29,26 +29,28 @@ public class EntradaProduto {
         return list;
     }
 
-    public static void InserirEntradaProduto(int cnpj,Timestamp dataEntrada) throws Exception{
+    public static Timestamp InserirEntradaProduto(int cnpj) throws Exception{
+        Timestamp dataEntrada = new Timestamp(new Date().getTime());
         String SQL = "INSERT INTO entradaProduto VALUES(?,?,default)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
         s.setInt(1, cnpj);
         s.setTimestamp(2,dataEntrada);
         s.execute();
         s.close();
+        return dataEntrada;
     }
    
-    public EntradaProduto(int cnpj, Date dataEntrada, double vlTotal) {
+    public EntradaProduto(int cnpj, Timestamp dataEntrada, double vlTotal) {
         this.cnpj = cnpj;
         this.dataEntrada = dataEntrada;
         this.vlTotal = vlTotal;
     }
 
-    public Date getDataEntrada() {
+    public Timestamp getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(Date dataEntrada) {
+    public void setDataEntrada(Timestamp dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
