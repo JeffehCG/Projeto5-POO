@@ -11,6 +11,7 @@
 <%
 
     String enterParkingErrorMessage = null;
+    //Grava produto no banco
     if(request.getParameter("enter-parking")!= null){
         int codigo = Integer.parseInt(request.getParameter("txt_codigo_barras"));
         String nome = request.getParameter("txt_nome");
@@ -27,6 +28,7 @@
       
         }
     }
+    //Session Fornecedor
             if(request.getParameter("entrada")!=null){
                 if (request.getParameter("txt_cnpj")!=null){
                  session.setAttribute("me.id",request.getParameter("txt_cnpj"));}

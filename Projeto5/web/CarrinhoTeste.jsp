@@ -7,6 +7,18 @@
 <%
     int cpf = 1; // Atribuir valor do cpf da sessão aqui 
     String enterParkingErrorMessage = null;
+    
+    //Remove item do array
+        try {
+            if(request.getParameter("remove")!=null){
+                int i = Integer.parseInt(request.getParameter("i"));
+                QuantidadeSaidaProduto.getSaida().remove(i);
+            }
+        } catch (Exception e) {
+        }
+    
+        
+    //Grava Itens do array no banco 
     try {
             if(request.getParameter("efetuar")!=null){
                 Timestamp time = SaidaProduto.InserirSaidaProduto(cpf);

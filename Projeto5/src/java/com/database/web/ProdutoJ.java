@@ -18,6 +18,7 @@ public class ProdutoJ {
     private int qtEstoque;
     private int cdGrade;
     
+    //Metodo para pesquisar produto pelo codigo de barras
     public static ProdutoJ getProdutoJ(int cdBarra) throws Exception{
         ProdutoJ pj = null;
         String SQL = "SELECT * FROM produto WHERE cd_barras_produto=?";
@@ -41,7 +42,8 @@ public class ProdutoJ {
         s.close();
         return pj;
     }
-
+    
+    //Metodo para listar Produtos do banco 
     public static ArrayList<ProdutoJ> getStayList() throws Exception{
         ArrayList<ProdutoJ> list = new ArrayList<>();
         Statement s = Database.getConnection().createStatement();
@@ -65,6 +67,7 @@ public class ProdutoJ {
         return list;
     }
     
+    //Metodo para inserir produto
     public static void inserirProduto(int cdBarra, String nome, String tipo, String marca, String ds,double valor, int grade) throws Exception{
         String SQL = "INSERT INTO produto VALUES(default,?,?,?,?,?,default,?,default,?)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
@@ -79,6 +82,7 @@ public class ProdutoJ {
         s.close();
     }
     
+    //Metodo alterar custo e quantidade de estoque na entrada(compra)
     public static void inserirCustoEEstoque (int cdBarras, double custo,int qtEstoque)throws Exception{
         ProdutoJ o = getProdutoJ(cdBarras);
         int EstAtual = qtEstoque + o.qtEstoque;
@@ -91,6 +95,7 @@ public class ProdutoJ {
         s.close();
     }
     
+    //Metodo para alterar estoque de produto na saida(venda)
     public static void saidaEstoque(int cdBarras, int qtSaida)throws Exception{
         ProdutoJ o = getProdutoJ(cdBarras);
         int estAtual = o.qtEstoque - qtSaida;

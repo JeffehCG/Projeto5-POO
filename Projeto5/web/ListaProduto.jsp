@@ -3,6 +3,7 @@
 <%@page import="com.database.web.QuantidadeSaidaProduto" %>
 <!DOCTYPE html>
 <%
+    //Exibe produtos do banco
     if(request.getParameter("carrinho")!=null){
         int i = Integer.parseInt(request.getParameter("i"));
         int qt = Integer.parseInt(request.getParameter("quantidade"));

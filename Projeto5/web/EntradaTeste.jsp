@@ -6,8 +6,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%  
-    int cnpj = Integer.parseInt((String)session.getAttribute("me.id"));
+    int cnpj = Integer.parseInt((String)session.getAttribute("me.id")); // pega valor do cnpj na session
     String enterParkingErrorMessage = null;
+    //Grava Item no array 
     try{
         if(request.getParameter("inserir")!= null){
             int cod = Integer.parseInt(request.getParameter("txt_cd_produto"));
@@ -21,7 +22,17 @@
             enterParkingErrorMessage = e.getMessage();
       
         }
+    
+    // Exclui item selecionado do array
+    try {
+            if(request.getParameter("remove")!=null){
+                int i = Integer.parseInt(request.getParameter("i"));
+                QuantidadeEntradaProduto.getEntrada().remove(i);
+            }
+        } catch (Exception e) {
+        }
         
+    //Grava itens do array no banco
     try {
             if(request.getParameter("gravar")!=null) {
                 Timestamp time = EntradaProduto.InserirEntradaProduto(cnpj);

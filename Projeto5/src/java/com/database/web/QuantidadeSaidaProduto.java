@@ -11,6 +11,7 @@ public class QuantidadeSaidaProduto {
     private Timestamp dataSaida;
     private double vlVenda;
     
+    //Array para guardar produtos selecionados antes de gravar no banco 
     private static ArrayList<QuantidadeSaidaProduto> Saida;
     public static ArrayList<QuantidadeSaidaProduto> setSaidaProdutos(int cdProduto, int qtProduto, double vlProduto) throws Exception{
         if (Saida == null){
@@ -19,12 +20,13 @@ public class QuantidadeSaidaProduto {
         Saida.add(Sai);
         return Saida;
     }
+    //Metodo para pegar dados do array, alterar, apagar etc...
     public static ArrayList<QuantidadeSaidaProduto> getSaida(){
         if (Saida == null){
             Saida = new ArrayList<>();}
         return Saida;
         }
-    
+        //Metodo para saida de produtos no banco 
         public static void SaidaProduto(int cpf, Timestamp time, int cdProduto, int quantidade, double valor) throws Exception{
             String SQL = "INSERT INTO quantidadeSaidaProduto VALUES(?,?,?,?,?)";
             PreparedStatement s = Database.getConnection().prepareStatement(SQL);
@@ -37,6 +39,7 @@ public class QuantidadeSaidaProduto {
             s.close();
 
 }
+        //Metodo para calcular a venda total de determinado produto tendo como base seu custo e quantidade de entrada
         public static double VlTotalVenda(int qt, double saida){
         double vlTotal = qt * saida ;
         return vlTotal;

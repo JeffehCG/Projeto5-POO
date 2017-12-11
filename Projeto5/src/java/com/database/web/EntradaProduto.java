@@ -13,6 +13,7 @@ public class EntradaProduto {
    private Timestamp dataEntrada;
    private double vlTotal;
    
+   //Array de exibição das entradas de produto
    public static ArrayList<EntradaProduto> getStayList() throws Exception{
         ArrayList<EntradaProduto> list = new ArrayList<>();
         Statement s = Database.getConnection().createStatement();
@@ -28,7 +29,7 @@ public class EntradaProduto {
         s.close();
         return list;
     }
-
+    //Metodo para inserir a entrada de compra do produto
     public static Timestamp InserirEntradaProduto(int cnpj) throws Exception{
         Timestamp dataEntrada = new Timestamp(new Date().getTime());
         String SQL = "INSERT INTO entradaProduto VALUES(?,?,default)";
@@ -39,7 +40,8 @@ public class EntradaProduto {
         s.close();
         return dataEntrada;
     }
-   
+    
+    //Metodo para inserir o valor total da compra
     public static void InserirVlTotal(double vlTotEntrada,int cnpj, Timestamp dtEntrada)throws Exception{
         String SQL = "UPDATE entradaProduto SET vl_total_entrada = ? WHERE cd_cnpj_fornecedor = ? AND dt_entrada = ?";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
