@@ -14,7 +14,12 @@
             int cod = Integer.parseInt(request.getParameter("txt_cd_produto"));
             int qt = Integer.parseInt(request.getParameter("txt_qt_produto"));
             double vl = Double.parseDouble(request.getParameter("txt_valor_custo"));
-            QuantidadeEntradaProduto.setEntradaProdutos(cod,qt,vl);
+            ProdutoJ pj = ProdutoJ.getProdutoJ(cod); // Verificar se produto esta cadastrado 
+            if(pj!=null){
+            QuantidadeEntradaProduto.setEntradaProdutos(cod,qt,vl);}
+            else{
+                enterParkingErrorMessage = "Produto não cadastrado";
+            }
             
         }
      
