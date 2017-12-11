@@ -43,13 +43,13 @@
                     </div>
                     <div class="col card-novo">
                         <%-- Coloca o email que ele digitar aqui no campo email do .jsp que abrir, pra ficar legal. --%>
-                        <form action="novo-cadastro.html">
+                        <form method="post" action="cadastro-cliente.jsp"  name="inputpage">
                             <p>SOU UM NOVO CLIENTE</p>
                             <div class="input-field">
                                 <input id="icon_prefix" type="email" name="txt_email_novo">
                                 <label for="icon_prefix">Email</label>
                             </div>
-                            <button class="btn waves-effect waves-light login" type="submit" name="btn_continuar">Continuar</button>
+                            <button class="btn waves-effect waves-light login" type="submit" >Continuar</button>
                         </form>
                     </div>
                 </div>

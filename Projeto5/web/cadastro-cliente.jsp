@@ -276,10 +276,15 @@
                         <div class="row">
                             <div class="col s12"><span>*Campos Obrigatórios.</span></div>
                         </div>
+                        <%
+                            String data=request.getParameter("txt_email_novo");
+                        %>
                         <div class="row">
                             <div class="input-field col s8">
                                 <p>*Email:</p>
-                                <input type="email" class="input-novo-cadastro" name="txt_email" required/>
+                                <%if(data!=null){%>
+                                <input type="email" class="input-novo-cadastro" name="txt_email" value="<%=data%>" required/><%}else{%>
+                                <input type="email" class="input-novo-cadastro" name="txt_email" required/> <%}%>
                             </div>
                         </div>
                         <div class="row">
@@ -317,6 +322,9 @@
             </div>
             <button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn_cadastrar">Cadastrar</button>
         </div>
+        
+        
+        
         <%@include file="WEB-INF/jspf/footer.jspf" %>
         <script type="text/javascript" src="assets/user/js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="assets/materialize/js/materialize.min.js"></script>
