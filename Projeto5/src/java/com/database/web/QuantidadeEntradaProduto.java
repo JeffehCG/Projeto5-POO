@@ -13,6 +13,7 @@ public class QuantidadeEntradaProduto {
     private Timestamp dataEntrada;
     private double vlCusto;
     
+    //Array para guardar produtos selecionados antes de gravar no banco 
     private static ArrayList<QuantidadeEntradaProduto> Entrada;
     public static ArrayList<QuantidadeEntradaProduto> setEntradaProdutos(int cdProduto, int qtProduto, double vlProduto) throws Exception{
         if (Entrada == null){
@@ -21,12 +22,14 @@ public class QuantidadeEntradaProduto {
         Entrada.add(Ent);
         return Entrada;
     }
+    //Metodo para pegar dados do array, alterar, apagar etc...
     public static ArrayList<QuantidadeEntradaProduto> getEntrada(){
         if (Entrada == null){
             Entrada = new ArrayList<>();}
         return Entrada;
         }
     
+    //Metodo para entrada de produtos no banco
     public static void EntradaProduto(int cnpj, Timestamp time, int cdProduto, int quantidade, double valor) throws Exception{
             String SQL = "INSERT INTO quantidadeEntradaProduto VALUES(?,?,?,?,?)";
             PreparedStatement s = Database.getConnection().prepareStatement(SQL);
@@ -39,6 +42,7 @@ public class QuantidadeEntradaProduto {
             s.close();
 
 }
+    //Metodo para calcular o custo total de determinado produto tendo como base seu custo e quantidade de entrada
     public static double VlTotalCusto(int qt, double cust){
         double vlTotal = qt * cust ;
         return vlTotal;
