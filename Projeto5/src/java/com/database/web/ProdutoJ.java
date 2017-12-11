@@ -91,6 +91,17 @@ public class ProdutoJ {
         s.close();
     }
     
+    public static void saidaEstoque(int cdBarras, int qtSaida)throws Exception{
+        ProdutoJ o = getProdutoJ(cdBarras);
+        int estAtual = o.qtEstoque - qtSaida;
+        String SQL = "UPDATE produto SET qt_estoque_produto = ? WHERE cd_barras_produto = ?";
+        PreparedStatement s = Database.getConnection().prepareStatement(SQL);
+        s.setInt(1, estAtual);
+        s.setInt(2, cdBarras);
+        s.execute();
+        s.close();
+    }
+    
     public ProdutoJ(int id, int cdBarra, String nome, String tipo, String marca, String desc, double vlCusto, double vlVenda, int qtEstoque, int cdGrade) {
         this.id = id;
         this.cdBarra = cdBarra;

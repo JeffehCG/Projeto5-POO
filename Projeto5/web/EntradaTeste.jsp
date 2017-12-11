@@ -59,7 +59,7 @@
                 <tr>
                     <th>Codigo</th>
                     <th>Quantidade </th>
-                    <th>Valor </th>
+                    <th>Valor Unitario </th>
                 </tr>
                                                 
                 <% for(int i=0; i<QuantidadeEntradaProduto.getEntrada().size();i++){ %>
@@ -72,8 +72,8 @@
                     <td>
                         <form>
                             <input type="hidden" name="i" value="<%=i%>"/>
-                            <input class="btn btn-inverse" type="submit" name="remove" value="Excluir"/>
-                            <input class="btn btn-inverse" type="submit" name="alterar" value="Alterar"/>
+                            <input type="submit" name="remove" value="Excluir"/>
+                            <input type="submit" name="alterar" value="Alterar"/>
                             
                         </form>
                     </td>

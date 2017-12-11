@@ -62,6 +62,10 @@
             CNPJ: <input type="text" name="txt_cnpj" /><br>
             <input type="submit" name="entrada" value="Entrada de Mercadoria" ><br><br>
         </form>
+        
+        <form action="ListaProduto.jsp">
+            <input type="submit" name="entrada" value="Lista Produtos" ><br><br>
+        </form>
        
     </body>
 </html>
