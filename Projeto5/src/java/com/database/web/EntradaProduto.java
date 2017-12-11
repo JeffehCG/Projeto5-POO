@@ -40,6 +40,16 @@ public class EntradaProduto {
         return dataEntrada;
     }
    
+    public static void InserirVlTotal(double vlTotEntrada,int cnpj, Timestamp dtEntrada)throws Exception{
+        String SQL = "UPDATE entradaProduto SET vl_total_entrada = ? WHERE cd_cnpj_fornecedor = ? AND dt_entrada = ?";
+        PreparedStatement s = Database.getConnection().prepareStatement(SQL);
+        s.setDouble(1, vlTotEntrada);
+        s.setInt(2, cnpj);
+        s.setTimestamp(3, dtEntrada);
+        s.execute();
+        s.close();
+    }
+    
     public EntradaProduto(int cnpj, Timestamp dataEntrada, double vlTotal) {
         this.cnpj = cnpj;
         this.dataEntrada = dataEntrada;

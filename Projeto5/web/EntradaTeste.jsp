@@ -2,10 +2,11 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="com.database.web.QuantidadeEntradaProduto"%>
 <%@page import="com.database.web.EntradaProduto" %>
+<%@page import="com.database.web.ProdutoJ" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%  
-    int cpf = Integer.parseInt((String)session.getAttribute("me.id"));
+    int cnpj = Integer.parseInt((String)session.getAttribute("me.id"));
     String enterParkingErrorMessage = null;
     try{
         if(request.getParameter("inserir")!= null){
@@ -23,12 +24,16 @@
         
     try {
             if(request.getParameter("gravar")!=null) {
-                Timestamp time = EntradaProduto.InserirEntradaProduto(cpf);
+                Timestamp time = EntradaProduto.InserirEntradaProduto(cnpj);
+                double vlTotal = 0;
                 for(int c=0; c<QuantidadeEntradaProduto.getEntrada().size();c++){ 
                 QuantidadeEntradaProduto a = QuantidadeEntradaProduto.getEntrada().get(c);
-                    QuantidadeEntradaProduto.EntradaProduto(cpf, time, a.getCodigoProduto(),a.getQtEntrada(),a.getVlCusto());
+                    QuantidadeEntradaProduto.EntradaProduto(cnpj, time, a.getCodigoProduto(),a.getQtEntrada(),a.getVlCusto());
+                    vlTotal += QuantidadeEntradaProduto.VlTotalCusto(a.getQtEntrada(),a.getVlCusto());
+                    ProdutoJ.inserirCustoEEstoque(a.getCodigoProduto(), a.getVlCusto(), a.getQtEntrada());
                 }
                 QuantidadeEntradaProduto.getEntrada().clear();
+                EntradaProduto.InserirVlTotal(vlTotal, cnpj, time);
             }
         } catch (Exception e) {
             enterParkingErrorMessage = e.getMessage();
@@ -42,9 +47,9 @@
     <body>
         <h1>Entrada</h1>
         <form>
-            <input type="text" name="txt_cd_produto" /><br>
-            <input type="text" name="txt_qt_produto" /><br>
-            <input type="text" name="txt_valor_custo" /><br>
+            Codigo de Barras <input type="text" name="txt_cd_produto" /><br>
+            Quantidade de entrada<input type="text" name="txt_qt_produto" /><br>
+            Valor Unitario<input type="text" name="txt_valor_custo" /><br>
             <input type="submit" name="inserir" value="Entrada" /><br><br><br><br>
             <input type="submit" name="gravar" value="Gravar Entrada"/>
         </form>

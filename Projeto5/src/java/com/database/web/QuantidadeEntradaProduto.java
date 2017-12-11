@@ -39,7 +39,10 @@ public class QuantidadeEntradaProduto {
             s.close();
 
 }
-
+    public static double VlTotalCusto(int qt, double cust){
+        double vlTotal = qt * cust ;
+        return vlTotal;
+    }
     public QuantidadeEntradaProduto(int codigoProduto, int qtEntrada, double vlCusto) {
         this.codigoProduto = codigoProduto;
         this.qtEntrada = qtEntrada;
