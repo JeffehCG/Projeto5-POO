@@ -1,5 +1,4 @@
 package com.database.web;
-import static com.database.web.Produto.getCodbarras;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
