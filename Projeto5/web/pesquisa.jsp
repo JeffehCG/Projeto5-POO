@@ -40,6 +40,7 @@
         <link rel="stylesheet" href="assets/user/css/style.css">
     </head>
     <body>
+        <h1><%=enterParkingErrorMessage%></h1>
         <%-- Fazer um if para verificar qual o tipo de usuário logado e mostrar a navbar correta, além de mostrar o nome do usuário também. --%>
         <%@include file="WEB-INF/jspf/navbar-logado-admin.jspf" %>
         <div class="container pesquisa">
@@ -63,6 +64,7 @@
                 <th>Quantidade Para Carrinho</th>
                 </tr>
             <%
+                try{
                 for(int i = 0 ; i<ProdutoJ.getStayList().size();i++){
                  ProdutoJ lista = ProdutoJ.getStayList().get(i);
             %>
@@ -83,7 +85,9 @@
                 </form>
                     <%--<td style="text-align: center"><button type="submit" class="btn waves-effect waves-light btn-cart"><i class="material-icons">add_shopping_cart</i></button></td>--%>
                 </tr>
-                <%}%>
+                <%}}catch(Exception e){
+                enterParkingErrorMessage = e.getMessage();
+}%>
             </table>
         </div>
         <div class="container">
