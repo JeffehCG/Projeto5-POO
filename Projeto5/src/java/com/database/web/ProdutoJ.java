@@ -107,6 +107,16 @@ public class ProdutoJ {
         s.close();
     }
     
+    //Metodo para excluir produto
+    public static void excluirProduto(int cdBarras)throws Exception{
+        String SQL = "DELETE FROM produto WHERE cd_barras_produto = ?";
+        PreparedStatement s = Database.getConnection().prepareStatement(SQL);
+        s.setInt(1, cdBarras);
+        s.execute();
+        s.close();
+    }
+    
+    
     public ProdutoJ(int id, int cdBarra, String nome, String tipo, String marca, String desc, double vlCusto, double vlVenda, int qtEstoque, int cdGrade) {
         this.id = id;
         this.cdBarra = cdBarra;

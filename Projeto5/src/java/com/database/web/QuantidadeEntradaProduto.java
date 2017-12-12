@@ -2,6 +2,8 @@
 package com.database.web;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import javafx.scene.shape.Arc;
@@ -47,6 +49,26 @@ public class QuantidadeEntradaProduto {
         double vlTotal = qt * cust ;
         return vlTotal;
     }
+    
+        //Metodo para listar Produtos do banco  pelo codigo de barras
+    public static ArrayList<QuantidadeEntradaProduto> getProdutoCdBarras(int cdBarras) throws Exception{
+        ArrayList<QuantidadeEntradaProduto> list = new ArrayList<>();
+        Statement s = Database.getConnection().createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM quantidadeEntradaProduto WHERE cd_barras_produto = "+cdBarras+"");
+        while(rs.next()){
+            QuantidadeEntradaProduto qe = new QuantidadeEntradaProduto(
+                     rs.getInt("cd_barras_produto")
+                    ,rs.getInt("cd_cnpj_fornecedor")
+                    ,rs.getInt("qt_produto")
+                    ,rs.getTimestamp("dt_entrada")
+                    ,rs.getDouble("vl_custo"));
+            list.add(qe);
+        }
+        rs.close();
+        s.close();
+        return list;
+    }
+    
     public QuantidadeEntradaProduto(int codigoProduto, int qtEntrada, double vlCusto) {
         this.codigoProduto = codigoProduto;
         this.qtEntrada = qtEntrada;

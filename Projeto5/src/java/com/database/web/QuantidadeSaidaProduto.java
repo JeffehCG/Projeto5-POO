@@ -1,5 +1,7 @@
 package com.database.web;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import javafx.scene.shape.Arc;
@@ -43,6 +45,25 @@ public class QuantidadeSaidaProduto {
         public static double VlTotalVenda(int qt, double saida){
         double vlTotal = qt * saida ;
         return vlTotal;
+    }
+       
+        //Metodo para listar Produtos do banco  pelo codigo de barras
+    public static ArrayList<QuantidadeSaidaProduto> getProdutoCdBarras(int cdBarras) throws Exception{
+        ArrayList<QuantidadeSaidaProduto> list = new ArrayList<>();
+        Statement s = Database.getConnection().createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM quantidadeSaidaProduto WHERE cd_barras_produto = "+cdBarras+"");
+        while(rs.next()){
+            QuantidadeSaidaProduto qs = new QuantidadeSaidaProduto(
+                     rs.getInt("cd_barras_produto")
+                    ,rs.getInt("cd_cpf_cliente")
+                    ,rs.getInt("qt_produto")
+                    ,rs.getTimestamp("dt_saida")
+                    ,rs.getDouble("vl_venda"));
+            list.add(qs);
+        }
+        rs.close();
+        s.close();
+        return list;
     }
 
     public QuantidadeSaidaProduto(int codigoProduto, int qtSaida, double vlVenda) {

@@ -71,7 +71,7 @@
         </form>
         <h1 style="color: red"><%=enterParkingErrorMessage%></h1>
         
-                    <table >
+                    <table>
                 <tr>
                     <th>Codigo</th>
                     <th>Quantidade </th>
