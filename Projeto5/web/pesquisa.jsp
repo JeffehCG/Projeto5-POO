@@ -40,9 +40,6 @@
         <link rel="stylesheet" href="assets/user/css/style.css">
     </head>
     <body>
-                <form action="CarrinhoTeste.jsp">
-            <input type="submit" name="car" value="Carrinho"/>
-        </form>
         <%-- Fazer um if para verificar qual o tipo de usuário logado e mostrar a navbar correta, além de mostrar o nome do usuário também. --%>
         <%@include file="WEB-INF/jspf/navbar-logado-admin.jspf" %>
         <div class="container pesquisa">

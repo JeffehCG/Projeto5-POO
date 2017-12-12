@@ -1,5 +1,43 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.database.web.QuantidadeSaidaProduto" %>
+<%@page import="com.database.web.SaidaProduto" %>
+<%@page import="com.database.web.ProdutoJ" %>
+<%@page import="java.sql.Timestamp"%>
 <!DOCTYPE html>
+<%  double vlt = 0 ;
+    int cpf = 1; // Atribuir valor do cpf da sessão aqui 
+    String enterParkingErrorMessage = null;
+    
+    //Remove item do array
+        try {
+            if(request.getParameter("remove")!=null){
+                int i = Integer.parseInt(request.getParameter("i"));
+                QuantidadeSaidaProduto.getSaida().remove(i);
+            }
+        } catch (Exception e) {
+        }
+    
+        
+    //Grava Itens do array no banco 
+    try {
+            if(request.getParameter("efetuar")!=null){
+                Timestamp time = SaidaProduto.InserirSaidaProduto(cpf);
+                double vlTotal = 0;
+                for(int c = 0; c<QuantidadeSaidaProduto.getSaida().size();c++){
+                   QuantidadeSaidaProduto venda = QuantidadeSaidaProduto.getSaida().get(c);
+                   QuantidadeSaidaProduto.SaidaProduto(cpf, time, venda.getCodigoProduto(), venda.getQtSaida(), venda.getVlVenda());
+                   vlTotal += QuantidadeSaidaProduto.VlTotalVenda(venda.getQtSaida(), venda.getVlVenda());
+                   ProdutoJ.saidaEstoque(venda.getCodigoProduto(), venda.getQtSaida());
+                }
+                QuantidadeSaidaProduto.getSaida().clear();
+                SaidaProduto.InserirVlTotal(vlTotal, cpf, time);
+            }
+        
+        } catch (Exception e) {
+            enterParkingErrorMessage = e.getMessage();
+        }
+
+    %>
 <html>
     <head>
         <title>Loja de Produtos Diversos | Good Judgment</title>
@@ -23,51 +61,44 @@
             <table align="center" class="responsive-table">
                 <tr>
                     <th>Nome</th>
-                    <th>Descrição</th>
+                    <th>Marca</th>
                     <th>Quantidade</th>
-                    <th>Preço</th>
+                    <th>Preço Unitario</th>
                     <th>Remover</th>
                 </tr>
+                <% for(int i=0; i<QuantidadeSaidaProduto.getSaida().size();i++){ %>
+                <% QuantidadeSaidaProduto ob = QuantidadeSaidaProduto.getSaida().get(i);
+                   ProdutoJ a = ProdutoJ.getProdutoJ(ob.getCodigoProduto());%>
                 <tr>
-                    <td>Produto 1</td>
-                    <td>Descrição do produto 1</td>
+                    <td><%=a.getNome()%></td>
+                    <td><%=a.getMarca()%></td>
                     <td>
-                        <input type="text" class="browser-default input-quantidade" value="1">
+                        <input type="text" class="browser-default input-quantidade" value="<%=ob.getQtSaida()%>">
                         <div class="botoes-plus-minus">
                             <form>
-                                <button type="submit" class="waves-effect btn-quantidade-plus" name="qtd_up"><i class="material-icons">arrow_drop_up</i></button>
-                                <button type="submit" class="waves-effect btn-quantidade-minus" name="qtd_down"><i class="material-icons">arrow_drop_down</i></button>
+                                <button type="submit" class=" btn-quantidade-plus" name="qtd_up"><i class="material-icons">arrow_drop_up</i></button>
+                                <button type="submit" class=" btn-quantidade-minus" name="qtd_down"><i class="material-icons">arrow_drop_down</i></button>
                             </form>
                         </div>
                     </td>
-                    <td>R$ 56,50</td>
+                    <td><%=ob.getVlVenda()%></td>
                     <td>
-                        <form><button type="submit" class="waves-effect btn-remover"><i class="material-icons">remove_shopping_cart</i></button></form>
+                        <form>
+                            <input type="hidden" name="i" value="<%=i%>"/>
+                            <input class="btn-remover" type="submit" name="remove" value="Excluir"/>
+                        </form>
+                       <%-- <button class=" btn-remover" name="remove"><i class="material-icons">remove_shopping_cart</i></button> --%>
                     </td>
                 </tr>
-                <tr>
-                    <td>Produto 2</td>
-                    <td>Descrição do produto 2</td>
-                    <td>
-                        <input type="text" class="browser-default input-quantidade" value="1">
-                        <div class="botoes-plus-minus">
-                            <form>
-                                <button type="submit" class="waves-effect btn-quantidade-plus"><i class="material-icons">arrow_drop_up</i></button>
-                                <button type="submit" class="waves-effect btn-quantidade-minus"><i class="material-icons">arrow_drop_down</i></button>
-                            </form>
-                        </div>
-                    </td>
-                    <td>R$ 56,50</td>
-                    <td>
-                        <form><button type="submit" class="waves-effect btn-remover"><i class="material-icons">remove_shopping_cart</i></button></form>
-                    </td>
-                </tr>
+                <% vlt += ob.getQtSaida()*ob.getVlVenda();
+                }
+                %>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td style="text-align: right">Total</td>
-                    <td>R$ 3000,00</td>
+                    <td>R$:<%=vlt%></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -75,9 +106,12 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <form action="pagamento.html" method="post">
-                            <button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn-finalizar">Finalizar Compra</button>
+                        <form>
+                            <input class="btn waves-light btn-carrinho-finalizar" type="submit" name="efetuar" value="Efetuar Compra"/>
                         </form>
+                        <%--<form action="pagamento.html" method="post">
+                            <button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn-finalizar">Finalizar Compra</button>
+                        </form>--%>
                     </td>
                 </tr>
             </table>
