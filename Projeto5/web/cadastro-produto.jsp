@@ -1,26 +1,32 @@
-<%@page import="com.database.web.Produtoj"%>
+<%@page import="com.database.web.ProdutoJ"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-if (request.getParameter("btn_cadastrar") != null) {
-    float codbarras = Float.parseFloat(request.getParameter("txt_codigo_barras"));
-    String nomeprod = request.getParameter("txt_nome");
-    int qtdprod = Integer.parseInt(request.getParameter("txt_qtd"));
-    float vlprod = Float.parseFloat(request.getParameter("txt_vl_venda"));
-    
-    try{
-    //       Produtoj.insereProduto(codbarras,nomeprod,vlprod,qtdprod);
-           response.sendRedirect(request.getRequestURI());  
-    }catch(Exception e){
-        
+
+    String enterParkingErrorMessage = null;
+    //Grava produto no banco
+    if(request.getParameter("enter-parking")!= null){
+        int codigo = Integer.parseInt(request.getParameter("txt_codigo_barras" ));
+        String nome = request.getParameter("txt_nome");
+        String tipo = request.getParameter("txt_tipo");
+        String marca = request.getParameter("txt_marca");
+        String ds = request.getParameter("txt_descricao");
+        double valor = Double.parseDouble(request.getParameter("txt_vl_venda"));
+        int grade = Integer.parseInt(request.getParameter("txt_class_fiscal"));
+        try{
+            ProdutoJ.inserirProduto(codigo,nome,tipo,marca,ds,valor,grade);
+            response.sendRedirect(request.getRequestURI());
+        }catch(Exception e){
+            enterParkingErrorMessage = e.getMessage();
+      
+        }
     }
-    }
-
-
-
-
-
-
+    //Session Fornecedor
+            if(request.getParameter("entrada")!=null){
+                if (request.getParameter("txt_cnpj")!=null){
+                 session.setAttribute("me.id",request.getParameter("txt_cnpj"));}
+                response.sendRedirect("EntradaTeste.jsp");
+            }
 %>
 <html>
     <head>
@@ -51,10 +57,6 @@ if (request.getParameter("btn_cadastrar") != null) {
                                 <input class="input-novo-cadastro" type="text" name="txt_nome" required/>
                             </div>
                             <div class="input-field col s4">
-                                <p>*Tipo:</p>
-                                <input class="input-novo-cadastro" type="text" name="txt_tipo" required/>
-                            </div>
-                            <div class="input-field col s4">
                                 <p>*Marca:</p>
                                 <input class="input-novo-cadastro" type="text" name="txt_marca"required />
                             </div>
@@ -63,10 +65,6 @@ if (request.getParameter("btn_cadastrar") != null) {
                             <div class="input-field col s5">
                                 <p>*Classificação Fiscal:</p>
                                 <input class="input-novo-cadastro" type="text" name="txt_class_fiscal" required/>
-                            </div>
-                            <div class="input-field col s5">
-                                <p>*ICMS:</p>
-                                <input class="input-novo-cadastro" type="text" name="txt_icms" required/>
                             </div>
                             <div class="input-field col s2">
                             </div>
@@ -78,7 +76,7 @@ if (request.getParameter("btn_cadastrar") != null) {
                             </div>
                             <div class="col s3">
                                 <p>*Categoria:</p>
-                                <select class="browser-default select-medium" name="cb_categoria" required style="width: 150px;">
+                                <select class="browser-default select-medium" name="txt_tipo" required style="width: 150px;">
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="1">Tecnologia</option>
                                     <option value="2">Vestuário</option>
@@ -89,21 +87,11 @@ if (request.getParameter("btn_cadastrar") != null) {
                             </div>
                         </div>
                     </fieldset>
-                </form>
-                <form>
                     <fieldset class="col fieldset-p prod">
                         <div class="row">
                             <div class="col s12"><span>*Campos Obrigatórios.</span></div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s4">
-                                <p>*Quantidade:</p>
-                                <input type="text" class="input-novo-cadastro" name="txt_qtd" required/>
-                            </div>
-                            <div class="input-field col s4">
-                                <p>*Valor de Custo:</p>
-                                <input type="text" class="input-novo-cadastro" name="txt_vl_custo" required/>
-                            </div>
                             <div class="input-field col s4">
                                 <p>Valor de Venda:</p>
                                 <input type="text" class="input-novo-cadastro" name="txt_vl_venda" />
@@ -115,11 +103,15 @@ if (request.getParameter("btn_cadastrar") != null) {
                                 <input class="input-novo-cadastro" type="text" name="txt_codigo_barras" required/>
                             </div>
                         </div>
+                        <br>
+                        <br>
+                        <input class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="enter-parking" value="Cadastrar"/>
                     </fieldset>
                 </form>
             </div>
-            <button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn_cadastrar">Cadastrar</button>
+            <%--<button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn_cadastrar">Cadastrar</button>--%>
         </div>
+        
         <%@include file="WEB-INF/jspf/footer.jspf" %>
         <script type="text/javascript" src="assets/user/js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="assets/materialize/js/materialize.min.js"></script>
