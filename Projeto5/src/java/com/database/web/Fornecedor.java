@@ -62,4 +62,16 @@ public class Fornecedor {
     }    
 }
     
+    public static void atualizaFornecedor(float cnpj, String razao) {
+        try{
+            String sql = "UPDATE fornecedor SET cd_cnpj_fornecedor =? AND nm_razao_social_fornecedor =? WHERE cnpj = ?";
+        PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
+        preparedStatement.setFloat(1,cnpj);
+        preparedStatement.setString(2,razao); 
+        }catch(Exception e){
+            
+        }
+        
+    }
+    
 }
