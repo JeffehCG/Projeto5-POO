@@ -1,4 +1,4 @@
-<%@page import="com.database.web.Produto"%>
+<%@page import="com.database.web.Produtoj"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -9,7 +9,7 @@ if (request.getParameter("btn_cadastrar") != null) {
     float vlprod = Float.parseFloat(request.getParameter("txt_vl_venda"));
     
     try{
-           Produto.insereProduto(codbarras,nomeprod,vlprod,qtdprod);
+    //       Produtoj.insereProduto(codbarras,nomeprod,vlprod,qtdprod);
            response.sendRedirect(request.getRequestURI());  
     }catch(Exception e){
         
