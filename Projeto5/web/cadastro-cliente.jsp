@@ -1,5 +1,47 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.database.web.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
+
+<%
+    String enterRegisterUserErroMessage = null;//Ira salvar uma possivel mensagem de erro
+    
+    if(request.getParameter("btn_cadastrar")!= null){//Ao botão cadastrar ser pressionado, passa os parâmetros para registrar um novo cliente
+        
+        int cpf = Integer.parseInt(request.getParameter("txt_cpf"));
+        String nome = request.getParameter("txt_nome");
+        String senha = request.getParameter("txt_senha");
+        String email = request.getParameter("txt_email");
+        String sexo = request.getParameter("rb_sexo");
+
+        //Forma de converter o valor de cd_dia para date
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        java.sql.Date data = new java.sql.Date(format.parse(request.getParameter("cb_dia")).getTime());
+        Date nascimento = data;
+        
+        
+        String cidade = request.getParameter("txt_cidade");        
+        String bairro = request.getParameter("txt_bairro"); 
+        String endereco = request.getParameter("txt_endereco");
+        int numeroEndereco = Integer.parseInt(request.getParameter("txt_endereco"));
+        String complemento = request.getParameter("txt_complemento");
+        String estado = request.getParameter("txt_estado");        
+        int telefonePrimario = Integer.parseInt(request.getParameter("txt_telefonePrimario"));
+        int telefoneSecundario = Integer.parseInt(request.getParameter("txt_telefoneSecundario"));
+        
+        try{
+            User.inserirUser(cpf, nome, senha, email, sexo, nascimento, cidade, bairro, endereco, numeroEndereco, complemento, estado, telefonePrimario, telefoneSecundario);
+            response.sendRedirect(request.getRequestURI());
+            }catch(Exception e){
+            enterRegisterUserErroMessage = e.getMessage();
+      
+        }
+    }
+%>
+
 <html>
     <head>
         <title>Loja de Produtos Diversos | Good Judgment</title>
@@ -24,15 +66,11 @@
                             <div class="col s12"><span>*Campos Obrigatórios.</span></div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s4">
+                            <div class="input-field col s6">
                                 <p>*Seu Nome:</p>
                                 <input class="input-novo-cadastro" type="text" name="txt_nome" required/>
                             </div>
-                            <div class="input-field col s4">
-                                <p>*Sobrenome:</p>
-                                <input class="input-novo-cadastro" type="text" name="txt_sobrenome" required/>
-                            </div>
-                            <div class="input-field col s4">
+                            <div class="input-field col s6">
                                 <p>*CPF:</p>
                                 <input class="input-novo-cadastro" type="text" name="txt_cpf" required/>
                             </div>
@@ -40,8 +78,8 @@
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col s5 radio-pos">
                                 <p>*Sexo:</p>
-                                <input type="radio" class="with-gap input-novo-cadastro" name="rb_sexo" value="1" id="masc" required><label for="masc" class="radio-label">Masculino</label>
-                                <input type="radio" class="with-gap input-novo-cadastro" name="rb_sexo" value="2" id="fem" required><label for="fem" class="radio-label">Feminino</label>
+                                <input type="radio" class="with-gap input-novo-cadastro" name="rb_sexo" value="M" id="masc" required><label for="masc" class="radio-label">Masculino</label>
+                                <input type="radio" class="with-gap input-novo-cadastro" name="rb_sexo" value="F" id="fem" required><label for="fem" class="radio-label">Feminino</label>
                             </div>
                             <div class="col s7">
                                 <p>*Data de Nascimento:</p>
@@ -242,30 +280,31 @@
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="1">Acre</option>
                                     <option value="2">Alagoas</option>
-                                    <option value="4">Amapá</option>
-                                    <option value="5">Amazonas</option>
-                                    <option value="6">Bahia</option>
-                                    <option value="7">Ceará</option>
-                                    <option value="8">Destrito Federal</option>
-                                    <option value="9">Espírito Santo</option>
-                                    <option value="10">Goiás</option>
-                                    <option value="11">Maranhão</option>
-                                    <option value="12">Mato Grosso</option>
-                                    <option value="13">Mato Grosso do Sul</option>
-                                    <option value="14">Minas Gerais</option>
-                                    <option value="15">Pará</option>
-                                    <option value="16">Paraíba</option>
-                                    <option value="17">Paraná</option>
-                                    <option value="18">Pernambuco</option>
-                                    <option value="19">Piauí</option>
-                                    <option value="20">Rio de Janeiro</option>
-                                    <option value="21">Rio Grande do Norte</option>
-                                    <option value="22">Rio Grande do Sul</option>
-                                    <option value="23">Rondônia</option>
-                                    <option value="24">Roraima</option>
-                                    <option value="25">Santa Catarina</option>
-                                    <option value="27">Sergipe</option>
-                                    <option value="28">Tocantins</option>
+                                    <option value="3">Amapá</option>
+                                    <option value="4">Amazonas</option>
+                                    <option value="5">Bahia</option>
+                                    <option value="6">Ceará</option>
+                                    <option value="7">Destrito Federal</option>
+                                    <option value="8">Espírito Santo</option>
+                                    <option value="90">Goiás</option>
+                                    <option value="10">Maranhão</option>
+                                    <option value="11">Mato Grosso</option>
+                                    <option value="12">Mato Grosso do Sul</option>
+                                    <option value="13">Minas Gerais</option>
+                                    <option value="14">Pará</option>
+                                    <option value="15">Paraíba</option>
+                                    <option value="16">Paraná</option>
+                                    <option value="17">Pernambuco</option>
+                                    <option value="18">Piauí</option>
+                                    <option value="19">Rio de Janeiro</option>
+                                    <option value="20">Rio Grande do Norte</option>
+                                    <option value="21">Rio Grande do Sul</option>
+                                    <option value="22">Rondônia</option>
+                                    <option value="23">Roraima</option>
+                                    <option value="24">Santa Catarina</option>
+                                    <option value="25">São Paulo</option>
+                                    <option value="26">Sergipe</option>
+                                    <option value="27">Tocantins</option>
                                 </select>
                             </div>
                         </div>
