@@ -87,7 +87,18 @@ public class DatabaseCreatorListener implements ServletContextListener {
                     + "cd_cliente INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)"
                     + ",cd_cpf_cliente FLOAT(11) NOT NULL PRIMARY KEY"
                     + ",nm_cliente VARCHAR(40) NOT NULL"
-                    + ",cd_senha_cliente VARCHAR(30))");
+                    + ",cd_senha_cliente VARCHAR(30) NOT NULL"
+                    + ",nm_email VARCHAR(360) NOT NULL"
+                    + ",ic_sexo CHAR(1) NOT NULL"
+                    + ",dt_nascimento DATE NOT NULL"
+                    + ",nm_cidade VARCHAR(360) NOT NULL"
+                    + ",nm_bairro VARCHAR(360) NOT NULL"
+                    + ",nm_endereco VARCHAR(360) NOT NULL"
+                    + ",cd_numero_endereco INTEGER"
+                    + ",nm_complemento_endereco VARCHAR(40)"
+                    + ",nm_estado VARCHAR(40) NOT NULL"
+                    + ",cd_telefone_primario INTEGER NOT NULL"
+                    + ",cd_telefone_secundario INTEGER)");
             System.out.println("Criada a tabela Cliente)");
         } catch (Exception ex) {
             System.out.println("Erro ao criar cliente"+ex.getMessage());
