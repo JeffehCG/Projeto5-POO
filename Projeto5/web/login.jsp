@@ -1,5 +1,65 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.database.web.QuantidadeSaidaProduto"%>
+<%@page import="com.database.web.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+
+    
+    session = request.getSession(false);
+    if(request.getParameter("btn_entrar")!= null){
+        
+        String email = request.getParameter("txt_email");
+        String senha = request.getParameter("txt_senha");
+        
+        Connection con = null;
+        PreparedStatement ps;
+        ResultSet rs;
+        String query;
+                
+        try
+        {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        
+        try
+        {
+            
+            con = DriverManager.getConnection("jdbc:derby:c:/derby/CompraOnline","root","");
+            query = "SELECT * FROM cliente WHERE nm_email=? AND cd_senha=?";
+            ps = con.prepareStatement(query);
+            ps.setString(1,email);
+            ps.setString(2,senha);
+            rs = ps.executeQuery();
+                    
+            if(rs.next())
+            {
+                //Login successful!
+                //Creating Session...
+                session = request.getSession();
+                session.setAttribute("userEmail", email);
+                
+            }
+            else
+            {
+                out.println("Email ou senha inválidos!!!! ");                        
+            }
+                    
+        }catch(SQLException e)
+        {
+            System.out.println(e);
+        }
+        
+    }
+
+%>
 <html>
     <head>
         <title>Loja de Produtos Diversos | Good Judgment</title>
