@@ -37,7 +37,6 @@
     </head>
     <body>
         <h1>Lista De Produtos</h1>
-        <h3><%=enterParkingErrorMessage%></h3>
         
         <form action="CarrinhoTeste.jsp">
             <input type="submit" name="car" value="Carrinho"/>

@@ -17,17 +17,6 @@
         }catch(Exception e){
         enterParkingErrorMessage = e.getMessage();
     }
-    try{
-    //Excluir produto do banco
-    if(request.getParameter("excluir")!=null){
-        int p = Integer.parseInt(request.getParameter("p"));
-        ProdutoJ exclusao = ProdutoJ.getStayList().get(p);
-        ProdutoJ.excluirProduto(exclusao.getCdBarra());
-        response.sendRedirect(request.getRequestURI());
-    }
-    }catch(Exception e){
-        enterParkingErrorMessage = "Produto não pode ser excluido, tem relação com vendas ou compras";
-    }
 
 %>
 <html>
@@ -40,7 +29,6 @@
         <link rel="stylesheet" href="assets/user/css/style.css">
     </head>
     <body>
-        <h1><%=enterParkingErrorMessage%></h1>
         <%-- Fazer um if para verificar qual o tipo de usuário logado e mostrar a navbar correta, além de mostrar o nome do usuário também. --%>
         <%@include file="WEB-INF/jspf/navbar-logado-admin.jspf" %>
         <div class="container pesquisa">

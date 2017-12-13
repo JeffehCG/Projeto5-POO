@@ -116,6 +116,19 @@ public class ProdutoJ {
         s.close();
     }
     
+        public static void AlterarProduto (int cdBarras,String nome, String tipo, String marca ,String desc, double vlvenda, int grade)throws Exception{
+        String SQL = "UPDATE produto SET nm_produto = ? , nm_tipo_produto = ? , nm_marca_produto = ? , ds_produto = ? , vl_produto = ? , cd_grade = ? WHERE cd_barras_produto = ? " ;
+        PreparedStatement s = Database.getConnection().prepareStatement(SQL);
+        s.setString(1,nome);
+        s.setString(2,tipo);
+        s.setString(3,marca);
+        s.setString(4,desc);
+        s.setDouble(5,vlvenda);
+        s.setInt(6,grade);
+        s.setInt(7,cdBarras);
+        s.execute();
+        s.close();
+    }
     
     public ProdutoJ(int id, int cdBarra, String nome, String tipo, String marca, String desc, double vlCusto, double vlVenda, int qtEstoque, int cdGrade) {
         this.id = id;
