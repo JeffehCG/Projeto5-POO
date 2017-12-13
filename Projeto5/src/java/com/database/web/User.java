@@ -1,10 +1,11 @@
 package com.database.web;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpSession;
 
 public class User {
 
@@ -44,6 +45,7 @@ public class User {
 
     public static User getUser(String email, String senha) throws SQLException {
 //        Statement s = Database.getConnection().createStatement();
+        try{
         String SQL = "SELECT * FROM cliente WHERE email=? AND senha=?";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
         s.setString(1, email);
@@ -66,23 +68,37 @@ public class User {
                     rs.getString("estado"),
                     rs.getInt("telefonePrimario"),
                     rs.getInt("telefoneSecundario"));
+            
+            
         }
         rs.close();
         s.close();
         return u;
+        }catch(Exception e){
+            
+        return null;
+        }
+        
     }
     //Registra os parametros dentro do banco de dados da tabela cliente
-    public static void inserirUser(int cpf, String nome, String senha, String email, String sexo, 
-            Date nascimento, String cidade, String bairro, String endereco, int numeroendereco, 
+    public static void inserirUser(String cpf, String nome, String senha, String email, String sexo, 
+            String nascimento, String cidade, String bairro, String endereco, int numeroendereco, 
             String complemento, String estado, int telefonePrimario, int telefoneSecundario) throws Exception{
+        String enterParkingErrorMessage = null;
+        int CPF = Integer.parseInt(cpf);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        Date nasc = (Date) formatter.parse(nascimento);  
+        
+        
         String SQL = "INSERT INTO cliente VALUES(default,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement s = Database.getConnection().prepareStatement(SQL);
-        s.setInt(1, cpf);
+        try{
+        s.setInt(1, CPF);
         s.setString(2, nome);
         s.setString(3, senha);
         s.setString(4, email);
         s.setString(5, String.valueOf(sexo));
-        s.setDate(6, nascimento);
+        s.setDate(6, nasc);
         s.setString(7, cidade);
         s.setString(8, bairro);
         s.setString(9, endereco);
@@ -93,6 +109,9 @@ public class User {
         s.setInt(14, telefoneSecundario);
         s.execute();
         s.close();
+        }catch(Exception e){
+            enterParkingErrorMessage = e.getMessage();
+        }
     }
     
     
