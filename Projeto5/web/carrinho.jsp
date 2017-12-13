@@ -20,13 +20,9 @@
     //Alterar quantidade 
     try {
             if(request.getParameter("alterarB")!=null){
-                int i = Integer.parseInt(request.getParameter("1"));
-                for(int s=0; s<QuantidadeSaidaProduto.getSaida().size();s++){
-                QuantidadeSaidaProduto op = QuantidadeSaidaProduto.getSaida().get(s);
-                
-                
-                }
-                
+                int i = Integer.parseInt(request.getParameter("p"));
+                int qt = Integer.parseInt(request.getParameter("qt"));
+                QuantidadeSaidaProduto.AlterarQuantidade(i, qt);         
             }
         } catch (Exception e) {
         }
@@ -103,7 +99,7 @@ try {
                         <td><%=a.getNome()%></td>
                         <td><%=a.getMarca()%></td>
                         <td>
-                            <input type= "text" name=" qt" value="<%=ob.getQtSaida()%>"/>
+                            <input type= "text" name="qt" value="<%=ob.getQtSaida()%>"/>
                         </td>
                         <td>R$:<%=ob.getVlVenda()%></td>
                         <td>
