@@ -1,6 +1,7 @@
 package com.database.web;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.UIManager;
@@ -66,31 +67,22 @@ public class Fornecedor {
         this.razao = razao;
     }
 
-    public static void insereFornecedor(float cnpj, String razao) {
-        try{
-            String sql = "INSERT into fornecedor"
-                + "cd_fornecedor"
-                + "cd_cnpj_fornecedor"
-                + "nm_razao_social_fornecedor"
-                 +"VALUES(default,?,?)";
-             PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
-        preparedStatement.setFloat(1,cnpj);
-        preparedStatement.setString(2,razao);
-    }catch(Exception e){
-        
-    }    
-}
-    
-    public static void atualizaFornecedor(float cnpj, String razao) {
-        try{
-            String sql = "UPDATE fornecedor SET cd_cnpj_fornecedor =? AND nm_razao_social_fornecedor =? WHERE cnpj = ?";
-        PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
-        preparedStatement.setFloat(1,cnpj);
-        preparedStatement.setString(2,razao); 
-        }catch(Exception e){
-            
-        }
-        
+    public static void inserirFornecedor(float cnpj, String razao) throws Exception {
+        String sql = "INSERT into fornecedor VALUES(default,?,?)";
+        PreparedStatement st = Database.getConnection().prepareStatement(sql);
+        st.setFloat(1, cnpj);
+        st.setString(2, razao);
+        st.execute();
+        st.close();
+
     }
     
+    public static void atualizaFornecedor(float cnpj, String razao) throws Exception {
+        String sql = "UPDATE fornecedor SET cd_cnpj_fornecedor =? AND nm_razao_social_fornecedor =? WHERE cnpj = ?";
+        PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
+        preparedStatement.setFloat(1, cnpj);
+        preparedStatement.setString(2, razao);
+
+    }
+
 }
