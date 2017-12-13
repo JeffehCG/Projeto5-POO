@@ -81,7 +81,7 @@
                             </form>
                         </div>
                     </td>
-                    <td><%=ob.getVlVenda()%></td>
+                    <td>R$:<%=ob.getVlVenda()%></td>
                     <td>
                         <form>
                             <input type="hidden" name="i" value="<%=i%>"/>

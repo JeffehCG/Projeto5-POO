@@ -125,7 +125,7 @@
                     <td><%=a.getNome()%>></td>
                     <td><%=a.getMarca()%></td>
                     <td><%=o.getQtEntrada()%></td>
-                    <td><%=o.getVlCusto()%></td>
+                    <td>R$:<%=o.getVlCusto()%></td>
                 <form>
                         <td>
                             <input type="hidden" name="i" value="<%=i%>" />

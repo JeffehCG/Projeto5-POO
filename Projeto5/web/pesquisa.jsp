@@ -59,7 +59,7 @@
                 <tr>
                     <td><%=lista.getNome()%></td>
                     <td><%=lista.getMarca()%></td>
-                    <td><%=lista.getVlVenda()%></td>
+                    <td>R$:<%=lista.getVlVenda()%></td>
                     <td><%=lista.getQtEstoque()%></td>
                 <form>
                         <td style="text-align: center">

@@ -123,7 +123,7 @@ try {
                         <td>-------</td>
                         <td>-------</td>
                         <td><input type="text" name="est" value="<%=lista.getQtEstoque()%>" disabled=""/></td>
-                        <td><input type="text" name="vlc" value="<%=lista.getVlCusto()%>" disabled=""/></td>
+                        <td><input type="text" name="vlc" value="<%=lista.getVlCusto()%>%" disabled=""/></td>
                         <td>-------</td>
                         </tr>
                     </form>           
@@ -134,7 +134,7 @@ try {
                     <td><%=lista.getTipo()%></td>
                     <td><%=lista.getMarca()%></td>
                     <td><%=lista.getDesc()%></td>
-                    <td><%=lista.getVlVenda()%></td>
+                    <td>R$:<%=lista.getVlVenda()%></td>
                     <td><%=lista.getCdGrade()%></td>   
                 <form>
                         <td>
@@ -146,8 +146,8 @@ try {
                 </form>
                 <td>-------</td>
                 <td><%=lista.getQtEstoque()%></td>
-                <td><%=lista.getVlCusto()%></td>
-                <td><%=(lista.getVlVenda()/lista.getVlCusto())*100%></td>
+                <td>R$:<%=lista.getVlCusto()%></td>
+                <td><%=(lista.getVlVenda()/lista.getVlCusto())*100%>%</td>
                     <%--<td style="text-align: center"><button type="submit" class="btn waves-effect waves-light btn-cart"><i class="material-icons">add_shopping_cart</i></button></td>--%>
                 </tr>
                 <%}}}catch(Exception e){
