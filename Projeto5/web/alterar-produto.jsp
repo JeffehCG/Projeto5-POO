@@ -102,7 +102,16 @@ try {
                         <tr style="color: white;background: blue">
                         <td><input type="hidden" name="cod" value="<%=lista.getCdBarra()%>" /></td>
                         <td><input type="text" name="nom" value="<%=lista.getNome()%>"/></td>
-                        <td><input type="text" name="tip" value="<%=lista.getTipo()%>"/></td>
+                        <td>
+                                <select class="browser-default select-medium" name="tip" required style="width: 150px;background: blue">
+                                    <option value="<%=lista.getTipo()%>" disabled selected>Selecione</option>
+                                    <option value="Tecnologia">Tecnologia</option>
+                                    <option value="Vestuario">Vestuário</option>
+                                    <option value="Comestivel">Comestível</option>
+                                    <option value="Higienico">Higiênico</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                        </td>
                         <td><input type="text" name="mar" value="<%=lista.getMarca()%>"/></td>
                         <td><input type="text" name="des" value="<%=lista.getDesc()%>"/></td>
                         <td><input type="text" name="vlv" value="<%=lista.getVlVenda()%>"/></td>

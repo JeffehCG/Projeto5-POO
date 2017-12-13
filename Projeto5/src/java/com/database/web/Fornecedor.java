@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.UIManager;
 
 
 public class Fornecedor {
@@ -29,6 +30,24 @@ public class Fornecedor {
         rs.close();
         s.close();
         return list;
+    }
+    
+    public static Fornecedor pesquisarCnpj(int cnpj) throws Exception{
+        Fornecedor f = null;
+        String SQL = "SELECT * FROM fornecedor WHERE cd_cnpj_fornecedor = ?";
+        PreparedStatement s = Database.getConnection().prepareStatement(SQL);
+        s.setInt(1, cnpj);
+        ResultSet rs = s.executeQuery();
+        if(rs.next()){
+            f = new Fornecedor(
+                    rs.getInt("cd_cnpj_fornecedor")
+                    ,rs.getString("nm_razao_social_fornecedor")
+                            );
+        }
+            rs.close();
+            s.close();
+            return f ;
+        
     }
 
     public static float getCnpj() {

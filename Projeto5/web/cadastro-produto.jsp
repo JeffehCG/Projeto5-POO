@@ -1,4 +1,5 @@
 <%@page import="com.database.web.ProdutoJ"%>
+<%@page import="com.database.web.Fornecedor" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -22,11 +23,19 @@
         }
     }
     //Session Fornecedor
+    try{
             if(request.getParameter("entrada")!=null){
                 if (request.getParameter("txt_cnpj")!=null){
+                    int cnpj = Integer.parseInt(request.getParameter("txt_cnpj"));
+                    Fornecedor f = Fornecedor.pesquisarCnpj(cnpj);
+                    if(f.getRazao()!=null){
                  session.setAttribute("me.id",request.getParameter("txt_cnpj"));}
-                response.sendRedirect("EntradaTeste.jsp");
+                response.sendRedirect("entrada_mercadoria.jsp");
+                }
             }
+    }catch(Exception e){
+        enterParkingErrorMessage = "Cnpj não cadastrado";
+    }
 %>
 <html>
     <head>
@@ -78,11 +87,11 @@
                                 <p>*Categoria:</p>
                                 <select class="browser-default select-medium" name="txt_tipo" required style="width: 150px;">
                                     <option value="" disabled selected>Selecione</option>
-                                    <option value="1">Tecnologia</option>
-                                    <option value="2">Vestuário</option>
-                                    <option value="4">Comestível</option>
-                                    <option value="5">Higiênico</option>
-                                    <option value="6">Outros</option>
+                                    <option value="Tecnologia">Tecnologia</option>
+                                    <option value="Vestuario">Vestuário</option>
+                                    <option value="Comestivel">Comestível</option>
+                                    <option value="Higienico">Higiênico</option>
+                                    <option value="Outros">Outros</option>
                                 </select>
                             </div>
                         </div>
@@ -108,6 +117,27 @@
                         <input class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="enter-parking" value="Cadastrar"/>
                     </fieldset>
                 </form>
+              <%if(enterParkingErrorMessage!=null){%>
+                     <h6 style="color: red"><%=enterParkingErrorMessage%></h6>
+                <%}%>
+                <br>
+                <div class="header-novo-cadastro">
+                <p>ENTRADA DE MERCADORIA</p>
+                <span>Digite o CNPJ do fornecedor para efetuar lançamento</span>
+                </div>
+                
+                <div class="row">
+                <form>
+                    <fieldset class="">
+                            <div class="input-field col s4">
+                                <p>*CNPJ:</p>
+                                <input class="input-novo-cadastro" type="text" name="txt_cnpj" required/>
+                            </div>
+                        <input class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="entrada" value="Entrada"/>
+                    </fieldset>
+                </form>
+                </div>
+                
             </div>
             <%--<button class="btn waves-effect waves-light btn-carrinho-finalizar" type="submit" name="btn_cadastrar">Cadastrar</button>--%>
         </div>
