@@ -148,7 +148,7 @@ try {
                 <td>-------</td>
                 <td><%=lista.getQtEstoque()%></td>
                 <td>R$:<%=lista.getVlCusto()%></td>
-                <td><%=(lista.getVlVenda()/lista.getVlCusto())*100%>%</td>
+                <td><%=((lista.getVlVenda()/lista.getVlCusto())-1)*100%>%</td>
                     <%--<td style="text-align: center"><button type="submit" class="btn waves-effect waves-light btn-cart"><i class="material-icons">add_shopping_cart</i></button></td>--%>
                 </tr>
                 <%}}}catch(Exception e){

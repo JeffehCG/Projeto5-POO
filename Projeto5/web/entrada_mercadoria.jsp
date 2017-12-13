@@ -55,6 +55,9 @@
                 }
                 QuantidadeEntradaProduto.getEntrada().clear();
                 EntradaProduto.InserirVlTotal(vlTotal, cnpj, time);
+                
+                session.setAttribute("me.id",request.getParameter("txt_cnpj"));
+                response.sendRedirect("alterar-produto.jsp");
             }
         } catch (Exception e) {
             enterParkingErrorMessage = e.getMessage();

@@ -3,6 +3,8 @@
     <li><a class="a-override" href="pesquisa.jsp">Procurar Produtos</a></li>
     <li><a class="a-override" href="mais-vendidos.jsp">Mais Vendidos</a></li>
     <li><a class="a-override" href="promocoes.jsp">Promoções</a></li>
+    <li><a class="a-override" href="lista_entrada.jsp">Lista Entradas</a></li>
+    <li><a class="a-override" href="lista_saida.jsp">Lista Saidas</a></li>
 </ul>
 <ul id="dropdown-user" class="dropdown-content collection">
     <li><a class="a-override" href="carrinho.jsp">Meu Carrinho</a></li>

@@ -21,10 +21,20 @@
     try {
             if(request.getParameter("alterarB")!=null){
                 int i = Integer.parseInt(request.getParameter("p"));
-                int qt = Integer.parseInt(request.getParameter("qt"));
-                QuantidadeSaidaProduto.AlterarQuantidade(i, qt);         
+                int cod = Integer.parseInt(request.getParameter("cod"));
+                int qt = Integer.parseInt(request.getParameter("qtd"));
+                double vlve = Double.parseDouble(request.getParameter("vlve"));
+                ProdutoJ carrinho = ProdutoJ.getProdutoJ(cod);
+                if(qt <= carrinho.getQtEstoque()&&qt>0){
+                QuantidadeSaidaProduto.getSaida().remove(i);
+                QuantidadeSaidaProduto.setSaidaProdutos(cod,qt,vlve);
+                    }
+                    else {
+                        enterParkingErrorMessage = "Quantidade não disponivel";
+                    }
             }
         } catch (Exception e) {
+            enterParkingErrorMessage = e.getMessage();
         }
     
         
@@ -79,6 +89,9 @@ try {
         você vai alterar aquele "Olá Visitante" para o nome do usuário --%>
         <div class="container pesquisa">
             <p class="p-header">MEU CARRINHO</p>
+                <%if(enterParkingErrorMessage!=null){%>
+                     <h6 style="color: red"><%=enterParkingErrorMessage%></h6>
+                <%}%>
             <table align="center" class="responsive-table">
                 <tr>
                     <th>Nome</th>
@@ -99,9 +112,9 @@ try {
                         <td><%=a.getNome()%></td>
                         <td><%=a.getMarca()%></td>
                         <td>
-                            <input type= "text" name="qt" value="<%=ob.getQtSaida()%>"/>
+                            <input type= "text" name="qtd" value="<%=ob.getQtSaida()%>"/>
                         </td>
-                        <td>R$:<%=ob.getVlVenda()%></td>
+                        <td><input type="hidden" name="vlve" value="<%=ob.getVlVenda()%>"</td>
                         <td>
                             <input type="hidden" name="p" value="<%=i%>" />
                             <input class="btn waves-light btn-cart" type="submit" name="alterarB" value="Alterar"/>

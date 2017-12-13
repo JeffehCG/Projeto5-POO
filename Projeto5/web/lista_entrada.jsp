@@ -2,26 +2,10 @@
 <%@page import="com.database.web.ProdutoJ" %>
 <%@page import="com.database.web.QuantidadeSaidaProduto" %>
 <%@page import="com.database.web.QuantidadeEntradaProduto" %>
+<%@page import="com.database.web.EntradaProduto" %>
 <!DOCTYPE html>
 <%
     String enterParkingErrorMessage = null;
-    try{
-    //Enviar produto para o carrinho
-    if(request.getParameter("carrinho")!=null){
-        int i = Integer.parseInt(request.getParameter("i"));
-        int qt = Integer.parseInt(request.getParameter("quantidade"));
-        ProdutoJ carrinho = ProdutoJ.getStayList().get(i);
-        if(qt <= carrinho.getQtEstoque()&&qt>0){
-        QuantidadeSaidaProduto.setSaidaProdutos(carrinho.getCdBarra(), qt, carrinho.getVlVenda());
-        }
-        else {
-            enterParkingErrorMessage = "Quantidade não disponivel";
-        }
-        
-    }
-        }catch(Exception e){
-        enterParkingErrorMessage = e.getMessage();
-    }
 
 %>
 <html>
@@ -36,12 +20,16 @@
     <body>
         <%-- Fazer um if para verificar qual o tipo de usuário logado e mostrar a navbar correta, além de mostrar o nome do usuário também. --%>
         <%@include file="WEB-INF/jspf/navbar-logado-admin.jspf" %>
+        <div style="align-self: center" class="header-novo-cadastro">
+                <p>LISTA DE ENTRADAS</p>
+                <span>Forneça as informações sobre as entradas de mercadoria.</span>
+            </div>
         <div class="container pesquisa">
             <form>
                 <div class="row">
                     <div class="col s1"></div>
                     <div class="input-field col s9">
-                        <input placeholder="Digite o nome do produto a ser procurado" type="text" class="input-pesquisa" name="txt_pesquisa">
+                        <input placeholder="" type="text" class="input-pesquisa" name="txt_pesquisa">
                     </div>
                     <div class="col s2">
                         <button class="btn waves-effect waves-light btn-pesquisa" type="submit" name="btn-pesquisar">Pesquisar</button>
@@ -53,36 +41,30 @@
                 <%}%>
             <table align="center" class="responsive-table">
                 <tr>
-                <th>Nome</th>
-                <th>Marca</th>
-                <th>Valor</th>
-                <th>Quantidade Disponivel</th>
-                <th>Quantidade Para Carrinho</th>
+                <th>Cnpj</th>
+                <th>Data</th>
+                <th>Valo Total</th>
+                <th></th>
                 </tr>
             <%
                 try{
-                for(int i = 0 ; i<ProdutoJ.getStayList().size();i++){
-                 ProdutoJ lista = ProdutoJ.getStayList().get(i);
-                 if(lista.getQtEstoque()!=0){
+                for(int i = 0 ; i<EntradaProduto.getStayList().size();i++){
+                 EntradaProduto lista = EntradaProduto.getStayList().get(i);
             %>
                 <tr>
-                    <td><%=lista.getNome()%></td>
-                    <td><%=lista.getMarca()%></td>
-                    <td>R$:<%=lista.getVlVenda()%></td>
-                    <td><%=lista.getQtEstoque()%></td>
+                    <td><%=lista.getCnpj()%></td>
+                    <td><%=lista.getDataEntrada()%></td>
+                    <td>R$:<%=lista.getVlTotal()%></td>
+                    <td>
                 <form>
-                        <td style="text-align: center">
-                            <input class="btn waves-light btn-cart" type="number" name="quantidade" value="0"/>
-                        </td>
-                        <td>
                             <input type="hidden" name="i" value="<%=i%>" />
-                            <input class="btn waves-light btn-cart" type="submit" name="carrinho" value="Enviar Carinho"/>
+                            <input class="btn waves-light btn-cart" type="submit" name="exibir" value="Exibir Produtos"/>
                             
                         </td>
                 </form>
                     <%--<td style="text-align: center"><button type="submit" class="btn waves-effect waves-light btn-cart"><i class="material-icons">add_shopping_cart</i></button></td>--%>
                 </tr>
-                <%}}}catch(Exception e){
+                <%}}catch(Exception e){
                 enterParkingErrorMessage = e.getMessage();
 }%>
             </table>

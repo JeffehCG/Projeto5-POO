@@ -22,21 +22,6 @@ public class QuantidadeSaidaProduto {
         Saida.add(Sai);
         return Saida;
     }
-    public static  ArrayList<QuantidadeSaidaProduto>AlterarQuantidade(int cod, int qt){
-        for(int i = 0; i<QuantidadeSaidaProduto.getSaida().size();i++){
-            QuantidadeSaidaProduto a = QuantidadeSaidaProduto.getSaida().get(i);
-            if(cod == i){
-                int c = a.getCodigoProduto();
-                double v = a.getVlVenda();
-                QuantidadeSaidaProduto.getSaida().remove(cod);
-                QuantidadeSaidaProduto sai = new QuantidadeSaidaProduto(cod, qt, v);
-                Saida.add(sai);
-                
-                        
-            }
-        }
-        return Saida;
-    }
     //Metodo para pegar dados do array, alterar, apagar etc...
     public static ArrayList<QuantidadeSaidaProduto> getSaida(){
         if (Saida == null){

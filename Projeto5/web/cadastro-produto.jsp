@@ -6,6 +6,7 @@
 
     String enterParkingErrorMessage = null;
     //Grava produto no banco
+    try{
     if(request.getParameter("enter-parking")!= null){
         int codigo = Integer.parseInt(request.getParameter("txt_codigo_barras" ));
         String nome = request.getParameter("txt_nome");
@@ -21,6 +22,8 @@
             enterParkingErrorMessage = e.getMessage();
       
         }
+    }}catch(Exception e){
+        
     }
     //Session Fornecedor
     try{
