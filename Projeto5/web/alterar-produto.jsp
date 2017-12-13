@@ -3,7 +3,7 @@
 <!DOCTYPE html>
     <%
         String enterParkingErrorMessage = null;
-        
+        //Alterar Produto do banco
         try {
             if(request.getParameter("alterarB")!=null){
                 int cod = Integer.parseInt(request.getParameter("cod"));
@@ -35,6 +35,7 @@
     
     int cont = 0 ;
     int par = 0 ;
+    //Acionar modo de Alteração 
 try {
             if(request.getParameter("alterar")!=null){
                 par = Integer.parseInt(request.getParameter("p"));

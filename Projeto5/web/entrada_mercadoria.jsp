@@ -6,7 +6,11 @@
 <%@page import="com.database.web.QuantidadeSaidaProduto" %>
 <%@page import="com.database.web.QuantidadeEntradaProduto" %>
 <!DOCTYPE html>
-<%  double vlt = 0;
+<%  double vlt = 0;           
+    if(session.getAttribute("me.id")==null){
+        response.sendRedirect(request.getContextPath());
+    }
+    
     int cnpj = Integer.parseInt((String)session.getAttribute("me.id")); // pega valor do cnpj na session
     String enterParkingErrorMessage = null;
     //Grava Item no array 
@@ -119,7 +123,7 @@
                 <% for(int i=0; i<QuantidadeEntradaProduto.getEntrada().size();i++){ %>
                 <% QuantidadeEntradaProduto o = QuantidadeEntradaProduto.getEntrada().get(i);
                    ProdutoJ a = ProdutoJ.getProdutoJ(o.getCodigoProduto());%>
-            
+                   
                 <tr>
                     <td><%=o.getCodigoProduto()%></td>
                     <td><%=a.getNome()%>></td>

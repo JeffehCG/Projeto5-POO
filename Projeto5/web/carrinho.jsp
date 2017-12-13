@@ -16,6 +16,20 @@
             }
         } catch (Exception e) {
         }
+        
+    //Alterar quantidade 
+    try {
+            if(request.getParameter("alterarB")!=null){
+                int i = Integer.parseInt(request.getParameter("1"));
+                for(int s=0; s<QuantidadeSaidaProduto.getSaida().size();s++){
+                QuantidadeSaidaProduto op = QuantidadeSaidaProduto.getSaida().get(s);
+                
+                
+                }
+                
+            }
+        } catch (Exception e) {
+        }
     
         
     //Grava Itens do array no banco 
@@ -36,6 +50,17 @@
         } catch (Exception e) {
             enterParkingErrorMessage = e.getMessage();
         }
+    //Acionar Alteração 
+        int cont = 0;
+        int par = 0;
+try {
+            if(request.getParameter("alterar")!=null){
+                par = Integer.parseInt(request.getParameter("i"));
+                cont = 1;
+}
+    } catch (Exception e) {
+        enterParkingErrorMessage = e.getMessage();   
+    }
 
     %>
 <html>
@@ -64,36 +89,56 @@
                     <th>Marca</th>
                     <th>Quantidade</th>
                     <th>Preço Unitario</th>
+                    <th>Alterar Quantidade</th>
                     <th>Remover</th>
                 </tr>
                 <% for(int i=0; i<QuantidadeSaidaProduto.getSaida().size();i++){ %>
                 <% QuantidadeSaidaProduto ob = QuantidadeSaidaProduto.getSaida().get(i);
                    ProdutoJ a = ProdutoJ.getProdutoJ(ob.getCodigoProduto());%>
+                 
+                   <%if(cont == 1 && par == i){%>
+                      <form>
+                          <tr style="color: white;background: blue">
+                          <input type="hidden" name="cod" value="<%=ob.getCodigoProduto()%>"/>
+                        <td><%=a.getNome()%></td>
+                        <td><%=a.getMarca()%></td>
+                        <td>
+                            <input type= "text" name=" qt" value="<%=ob.getQtSaida()%>"/>
+                        </td>
+                        <td>R$:<%=ob.getVlVenda()%></td>
+                        <td>
+                            <input type="hidden" name="p" value="<%=i%>" />
+                            <input class="btn waves-light btn-cart" type="submit" name="alterarB" value="Alterar"/>
+                        </td>
+                      </tr>
+                      </form>
+                   
+                   <%}if(cont != 1){%>
+                   
                 <tr>
                     <td><%=a.getNome()%></td>
                     <td><%=a.getMarca()%></td>
                     <td>
-                        <input type="text" class="browser-default input-quantidade" value="<%=ob.getQtSaida()%>">
-                        <div class="botoes-plus-minus">
-                            <form>
-                                <button type="submit" class=" btn-quantidade-plus" name="qtd_up"><i class="material-icons">arrow_drop_up</i></button>
-                                <button type="submit" class=" btn-quantidade-minus" name="qtd_down"><i class="material-icons">arrow_drop_down</i></button>
-                            </form>
-                        </div>
+                        <%=ob.getQtSaida()%>
                     </td>
                     <td>R$:<%=ob.getVlVenda()%></td>
+                <form>
                     <td>
-                        <form>
                             <input type="hidden" name="i" value="<%=i%>"/>
-                            <input class="btn-remover" type="submit" name="remove" value="Excluir"/>
-                        </form>
+                            <input class="btn waves-light btn-cart" type="submit" name="alterar" value="Alterar Quantidade"/>
                        <%-- <button class=" btn-remover" name="remove"><i class="material-icons">remove_shopping_cart</i></button> --%>
                     </td>
+                    <td>
+                            <input class="btn waves-light btn-cart" type="submit" name="remove" value="Excluir"/>
+                    </td>
+                </form>
                 </tr>
-                <% vlt += ob.getQtSaida()*ob.getVlVenda();
+                
+                <%} vlt += ob.getQtSaida()*ob.getVlVenda();
                 }
                 %>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -101,6 +146,7 @@
                     <td>R$:<%=vlt%></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
