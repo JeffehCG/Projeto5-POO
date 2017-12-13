@@ -6,12 +6,17 @@
 <%
     String enterParkingErrorMessage = null;
     try{
-    //Exibe produtos do banco
+    //Enviar produto para o carrinho
     if(request.getParameter("carrinho")!=null){
         int i = Integer.parseInt(request.getParameter("i"));
         int qt = Integer.parseInt(request.getParameter("quantidade"));
         ProdutoJ carrinho = ProdutoJ.getStayList().get(i);
+        if(qt <= carrinho.getQtEstoque()){
         QuantidadeSaidaProduto.setSaidaProdutos(carrinho.getCdBarra(), qt, carrinho.getVlVenda());
+        }
+        else {
+            enterParkingErrorMessage = "Quantidade não disponivel";
+        }
         
     }
         }catch(Exception e){
@@ -43,6 +48,9 @@
                     </div>
                 </div>
             </form>
+                <%if(enterParkingErrorMessage!=null){%>
+                     <h6 style="color: red"><%=enterParkingErrorMessage%></h6>
+                <%}%>
             <table align="center" class="responsive-table">
                 <tr>
                 <th>Nome</th>
@@ -63,7 +71,7 @@
                     <td><%=lista.getQtEstoque()%></td>
                 <form>
                         <td style="text-align: center">
-                            <input class="btn waves-light btn-cart" type="number" name="quantidade"/>
+                            <input class="btn waves-light btn-cart" type="number" name="quantidade" value="0"/>
                         </td>
                         <td>
                             <input type="hidden" name="i" value="<%=i%>" />
